@@ -63,6 +63,7 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
         }
     }
 
+
     @Override public void removeFromCache(@NonNull String key)
     {
         final String md5 = EncryptionUtil.generateMd5(String.valueOf(key));
