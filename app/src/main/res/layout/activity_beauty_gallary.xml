@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresher_root_layout"
+    style="@style/StyleMMParent"
+    android:background="@color/lighterGray"
+    tools:context=".mvp.ui.activity.MainActivity">
+
+
+    <include layout="@layout/header_background_image"/>
+
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            style="@style/AppBarLayoutStyle"
+            android:background="@android:color/transparent"
+            >
+
+            <include layout="@layout/toolbar_comm"/>
+        </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/fragment_base_refresh_list"/>
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</FrameLayout>
+

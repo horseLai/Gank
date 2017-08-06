@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/StyleWWParent"
+    android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:background="@drawable/bg_notebook"
+    >
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:fitsSystemWindows="true">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card"
+            style="@style/StyleWWParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="6dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="2dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/ib_back_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/list_item_bg_tint_selector"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_arrow_back_black_24dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/ib_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/list_item_bg_tint_selector"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_search_black_24dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/ib_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/ib_search"
+                    android:background="@drawable/list_item_bg_tint_selector"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_clear_black_24dp"
+                    />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/et_search_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/ib_back_up"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_toEndOf="@id/ib_back_up"
+                    android:layout_toStartOf="@id/ib_clear"
+                    android:background="@color/cardview_light_background"
+                    android:cursorVisible="true"
+                    android:hint="搜点什么呢 ..."
+                    android:lines="1"
+                    android:scrollHorizontally="true"
+
+                    />
+
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--
+                <ImageButton
+                    android:id="@+id/ib_cat_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/card"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/list_item_bg_tint_selector"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/ic_more_vert_black_24dp"
+                    />-->
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/search_cat_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="4dp"
+            android:layout_below="@id/card"
+            android:layout_marginTop="3dp"
+            android:background="@color/cardview_light_background"
+            app:tabIndicatorColor="@color/cardview_light_background"
+            app:tabMaxWidth="55dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/hotPink"
+            app:tabTextColor="@android:color/darker_gray"
+            />
+
+
+    </RelativeLayout>
+
+    <!-- <View
+         android:id="@+id/div"
+         android:layout_width="match_parent"
+         android:layout_height="1dp"
+
+         android:layout_below="@id/top"
+         android:layout_marginTop="5dp"
+         android:background="@color/lightGray"
+         />-->
+
+    <!--<TextView
+        android:id="@+id/tv_history_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/div"
+        android:padding="10dp"
+        android:text="搜索记录"
+        />
+
+    <TextView
+        android:id="@+id/tv_history_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_history_label"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/div"
+        android:padding="10dp"
+        android:text="共10条"
+        />-->
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top"
+        android:id="@+id/search_result_refresher"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

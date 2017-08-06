@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_chrome_reader_mode_black_24dp"
+        android:title="@string/title_home"/>
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
+        android:title="@string/title_history"/>
+
+    <item
+        android:id="@+id/navigation_me"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/title_about"/>
+
+</menu>

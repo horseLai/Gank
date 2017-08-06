@@ -1,0 +1,138 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="ThemeOverlay.AppCompat.Dark">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@color/lighterGray</item>
+
+        <!----><!--
+        <item name="android:windowEnterAnimation">@anim/popup_window_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_hide</item>-->
+    </style>
+
+
+    <style name="StyleWWParent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="StyleMMParent">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+
+    <!--CollapseLayout-->
+    <style name="AppBarCollapseLayoutStyle" parent="StyleMMParent">
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <!--AppBarLayout -->
+    <style name="AppBarLayoutStyle" parent="StyleMMParent">
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:fitsSystemWindows">true</item>-->
+        <item name="android:theme">@style/AppTheme.PopupOverlay</item>
+    </style>
+
+    <!--Image embaded in CollapseLayout-->
+    <style name="AppBarEmbadedImageStyle" parent="StyleMMParent">
+        <item name="android:layout_height">240dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+
+    <!--toolbar-->
+    <style name="AppToolbarStyle" parent="StyleMMParent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
+
+
+    <!--headers in recyclerView of home-->
+    <style name="CommHomeHeadersTextStyle" parent="StyleWWParent">
+        <item name="android:textSize">14sp</item>
+        <!--<item name="android:textColor">@color/lighterBlack</item>-->
+    </style>
+
+    <!--bar title 自动滚动效果-->
+    <style name="BarTitleMarqueeStyle" parent="CommHomeHeadersTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:lineSpacingExtra">1dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/lightBlack</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:focusableInTouchMode">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+    </style>
+
+    <!--home ic_category_teal bar-->
+    <style name="HomeCategoryBarTextStyle" parent="StyleWWParent">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!--RecyclerView-->
+    <style name="CommRecyclerViewStyle" parent="StyleMMParent">
+        <item name="android:scrollbarFadeDuration">1500</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbarSize">4dp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+
+    <!--SwipeRefreshLayout-->
+    <style name="CommSwipeRefreshStyle" parent="StyleMMParent">
+    </style>
+
+    <!--TabLayout-->
+    <style name="CommTabLayoutStyle" parent="StyleMMParent">
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+
+    <!--设置界面item-->
+    <style name="AboutItemStyle" parent="StyleMMParent">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:textColor">@color/lightBlack</item>
+        <item name="android:background">@drawable/list_item_bg_tint_selector</item>
+        <item name="android:drawableEnd">@drawable/ic_right_black</item>
+
+    </style>
+
+    <style name="searchPopupAnimationStyle">
+        <item name="android:windowEnterAnimation">@anim/popup_window_show</item>
+        <item name="android:windowExitAnimation">@anim/popup_window_hide</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+
+</resources>

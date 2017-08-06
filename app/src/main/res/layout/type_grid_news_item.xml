@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="0.5dp"
+    app:cardElevation="3dp"
+    android:layout_margin="3dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <ImageView
+            android:id="@+id/iv_grid_image"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_grid_image">
+
+            <ImageView
+                android:id="@+id/btn_grid_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="3dp"
+                app:srcCompat="@drawable/ic_more_vert_teal_24dp"/>
+
+
+            <TextView
+                android:id="@+id/tv_grid_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="3dp"
+                android:layout_toStartOf="@+id/btn_grid_more"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="title"
+                android:textColor="@android:color/black"
+                android:textSize="13sp"/>
+
+
+            <TextView
+                android:id="@+id/tv_grid_src_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/tv_grid_desc"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLength="8"
+                android:text="from"
+                android:textSize="12sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_grid_who"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_grid_desc"
+                android:layout_marginBottom="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginTop="8dp"
+                android:layout_toStartOf="@id/btn_grid_more"
+                android:ellipsize="end"
+                android:maxLength="6"
+                android:lines="1"
+                android:text=" who"
+                android:textSize="12sp"
+                />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nest_scroll_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="简单介绍"
+            android:padding="10dp"
+            android:textColor="@color/lightBlack"
+            android:textSize="14sp"
+            />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:cardCornerRadius="2dp"
+            app:contentPadding="5dp"
+            >
+
+            <TextView
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:textColorLink="@color/lightPink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/licence_desc"
+                android:padding="10dp"
+                android:textColor="@color/lightBlack"
+                android:textSize="14sp"
+                />
+
+        </android.support.v7.widget.CardView>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="致谢开源"
+            android:padding="10dp"
+            android:textColor="@color/lightBlack"
+            android:textSize="14sp"
+            />
+
+        <android.support.v7.widget.CardView
+            android:layout_marginTop="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="2dp"
+            app:contentPadding="5dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:linksClickable="true"
+                android:text="@string/licence_thanks"
+                android:padding="10dp"
+                android:textColor="@color/lightBlack"
+                android:textSize="14sp"
+                />
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

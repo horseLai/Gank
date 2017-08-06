@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_base_refresher"
+    android:fitsSystemWindows="true"
+    app:layout_scrollInterpolator="@color/lightGreen"
+    app:layout_behavior="@string/navigation_view_auto_hide_behavior">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/vp_top_slider"
+
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_base_list"
+            android:layout_width="match_parent"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbarFadeDuration="1500"
+            android:fadeScrollbars="true"
+            android:layout_height="match_parent"
+            android:background="@color/lighterGray"/>
+
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.SwipeRefreshLayout>

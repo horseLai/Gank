@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">干货集中营</string>
+
+    <string name="tv_detail_loading">正在加载…</string>
+
+    <!--提示语句-->
+    <string name="tvLoadFailed">数据加载异常(⊙ˍ⊙)</string>
+    <string name="tvNetInvalidate">网络连接异常(。_。)</string>
+    <string name="tvLoadSuccess">加载成功！(●ˇ∀ˇ●)</string>
+    <string name="title_activity_web">WebActivity</string>
+
+    <!--菜单-->
+    <string name="title_home">推荐</string>
+    <string name="title_history">记录</string>
+    <string name="title_about">关于</string>
+
+    <string name="refresh">刷新</string>
+    <string name="share">分享</string>
+    <string name="download">下载</string>
+    <string name="rotate_right_90">向右旋转90度</string>
+    <string name="rotate_left_90">向左旋转90度</string>
+    <string name="cut">裁剪</string>
+    <string name="setting_wallpaper">设置为桌面壁纸</string>
+    <string name="setting_lock_wallpaper">设置为锁屏壁纸</string>
+
+
+    <string name="see_beauty">只看妹纸</string>
+    <string name="load_content">打开看看</string>
+    <string name="load_by_other">用其他浏览器</string>
+
+    <string name="tv_load_content">打开浏览</string>
+    <string name="tv_only_beauty">只要妹纸</string>
+
+
+    <string name="logo_title_about">
+         干货集中营
+    </string>
+    <string name="official_web">
+          http://gank.io/
+    </string>
+    <string name="logo_desc">
+         每日分享妹子图和技术干货，还有供大家中午休息的休闲视频
+    </string>
+    <string name="share_app">分享APP</string>
+    <string name="share_text">
+        发现一个好玩又漂亮的应用，欢迎下载
+    </string>
+    <string name="save">收藏</string>
+    <string name="alert_warming">
+        缓存并非都是垃圾，缓存可以为您节省流量，同时还能使界面更流畅，所以，还要清理？(oﾟvﾟ)ノ
+    </string>
+    <string name="external_browser">外部浏览器打开</string>
+    <string name="me_licence">
+        this is a licence
+    </string>
+    <string name="licence_desc">
+        <p>
+            \t介绍点什么呢，嗯~\n
+            \t先说说数据来源，本App中的所有数据都来源于代码家的干货集中营：http://gank.io/，
+            这是一个优秀的网站，聚集着一群优秀的开发者们。开源精神是其精神体现，令人钦佩。\n
+            \t再说说这个App，继<a href="http://gank.io/">干货集中营</a>的开源精神，当然，这个App也会是开源的。
+            App暂且并不完美，因为作者，也就是我，各方面水平尚且有限，所以导致还存在一些问题，不过，我会尽力让这个App变得更加美观、
+            更加稳定、流畅且实用。同时也欢迎有兴趣的同学给我提建议。\n
+        </p>
+    </string>
+    <string name="licence_thanks">
+        感谢开源社区，让我学习了很多。以下是我引用到的第三方开源软件，当然，官方库就不列举了。
+        \n<ul>
+            <li>
+                 DiskLruCache: https://github.com/JakeWharton/DiskLruCache
+            </li>\n
+        </ul>
+    </string>
+    <string name="me_developer">
+        本应用由@horseLai承包，嗯，暂且来说，博客、GitHub里面是没什么内容的，后续添加。
+        \n\n<ul>
+            <li>
+                 简书: http://www.jianshu.com/u/677e2d71d0b1
+            </li>\n
+            <li>
+                 GitHub: https://github.com/horseLai
+            </li>\n
+        </ul>
+    </string>
+    <string name="me_app_version">
+        暂且版本为 V1.0，会不断更新喔！敬请期待。
+    </string>
+    <string name="web_menu">菜单</string>
+    <string name="clean_history">清空历史数据</string>
+
+
+</resources>

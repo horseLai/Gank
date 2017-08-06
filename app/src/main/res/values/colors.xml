@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">#FFf9a8a4</color>
+    <color name="colorPrimary">#FFf79c97</color>
+    <color name="colorPrimaryDark">#FFf28680</color>
+
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="hotPink">#FFf28680</color>
+    <color name="pink">#FFf79c97</color>
+    <color name="lightPink">#FFf9a8a4</color>
+    <color name="lighterPink">#FFf7b6b4</color>
+    <color name="superLighterPink">#f1c9c8</color>
+    <color name="cardViewWhite">#FFFFFFFF</color>
+    <color name="cardViewLighterWhite">#FFFEFEFE</color>
+    <color name="lightBlue">#FF93b4ea</color>
+    <color name="lightGreen">#FFcae4d0</color>
+    <color name="lightBrown">#FFd2c3a0</color>
+    <color name="deepBrown">#FFa48f5e</color>
+    <color name="superLightBrown">#FFebe8d7</color>
+    <color name="lighterBrown">#FFefe2c6</color>
+    <color name="generalBlue">#FF3A83FB</color>
+    <color name="deepBlue">#FF1296db</color>
+    <color name="generalGreen">#FF30B051</color>
+    <color name="grayBlue">#FF6fb7cb</color>
+    <color name="lightGrayBlue">#FF8cc1d2</color>
+    <color name="lighterGrayBlue">#abd4e1</color>
+    <color name="generalOrange">#FFFDBA2C</color>
+    <color name="skyBlue">#FF2ca8ff</color>
+    <color name="lightBlack">#FF212121</color>
+    <color name="lighterBlack">#FF616060</color>
+
+    <color name="gray">#FFcbd6de</color>
+    <color name="lightGray">#FFe3ecf2</color>
+    <color name="lighterGray">#FFeef0f1</color>
+    <color name="yellowRed">#FFffebc3</color>
+    <color name="yellow">#FFffe868</color>
+    <color name="blueGray">#FF607d8b</color>
+    <color name="deepTeal">#FF029688</color>
+    <color name="lightTeal">#FF4db688</color>
+    <color name="lighterTeal">#FF80cbca</color>
+    <color name="superLightTeal">#FFb2dfdb</color>
+
+
+</resources>

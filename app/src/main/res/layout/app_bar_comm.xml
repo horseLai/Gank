@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_bar_layout"
+    style="@style/AppBarLayoutStyle"
+    >
+    <!--
+        android:paddingTop="@dimen/status_bar_height"
+        -->
+    <include layout="@layout/toolbar_comm"/>
+</android.support.design.widget.AppBarLayout>

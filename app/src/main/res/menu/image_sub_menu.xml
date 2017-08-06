@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_wallpaper"
+        android:title="@string/setting_wallpaper"/>
+
+    <!--<item
+        android:id="@+id/menu_lock_wallpaper"
+        android:title="@string/setting_lock_wallpaper"/>
+-->
+    <item
+        android:id="@+id/menu_rotate_right"
+        android:title="@string/rotate_right_90"/>
+
+    <item
+        android:id="@+id/menu_rotate_left"
+        android:title="@string/rotate_left_90"/>
+
+    <item
+        android:id="@+id/menu_cut"
+        android:title="@string/cut"/>
+
+</menu>

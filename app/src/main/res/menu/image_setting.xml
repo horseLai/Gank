@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_download"
+        android:icon="@drawable/ic_file_download_white_24dp"
+        android:title="@string/download"
+        app:showAsAction="always"
+        />
+
+
+    <item
+        android:id="@+id/menu_share"
+        android:icon="@drawable/ic_share_white_24dp"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_menu"
+        android:icon="@drawable/ic_more_vert_white_24dp"
+        android:title="菜单"
+        app:showAsAction="always"
+        />
+
+
+</menu>
