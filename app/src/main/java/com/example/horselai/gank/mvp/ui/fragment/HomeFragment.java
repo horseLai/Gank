@@ -20,6 +20,7 @@ import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.RefresherHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by horseLai on 2017/7/16.
@@ -63,7 +64,12 @@ public class HomeFragment extends BaseListFragment<CommHomeItem>
             }
         });
 
-        updateData(MainViewPresenter.HOME);
+        if (bundle == null) {
+            updateData(MainViewPresenter.HOME);
+        } else {
+            mAdapter.removeAllItems();
+            mAdapter.insertItemsIntoFootPos((List<CommHomeItem>) bundle.getSerializable("data"));
+        }
 
 
     }
@@ -139,6 +145,13 @@ public class HomeFragment extends BaseListFragment<CommHomeItem>
     {
         super.onPause();
         mBinder.stopSlideRotation();
+    }
+
+    @Override public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("data", mAdapter.getDataList());
     }
 
     @Override public void onDestroy()

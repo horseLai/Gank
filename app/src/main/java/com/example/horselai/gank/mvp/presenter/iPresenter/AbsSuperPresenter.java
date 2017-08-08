@@ -14,7 +14,7 @@ import com.example.horselai.gank.mvp.ui.iView.ISuperView;
  */
 public abstract class AbsSuperPresenter<T>
 {
-    private final ISuperView mView;
+    private final ISuperView<T> mView;
 
     protected static final int SUCCESS = 0;
     protected static final int FAIL = 1;
@@ -25,7 +25,7 @@ public abstract class AbsSuperPresenter<T>
         {
             switch (msg.what) {
                 case SUCCESS:
-                    mView.onLoadOk(msg.obj);
+                    mView.onLoadOk((T) msg.obj);
                     break;
                 case FAIL:
                     mView.onLoadFailed((Exception) msg.obj);

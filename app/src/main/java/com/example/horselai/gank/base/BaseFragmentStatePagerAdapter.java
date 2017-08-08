@@ -31,6 +31,7 @@ public class BaseFragmentStatePagerAdapter extends FragmentStatePagerAdapter
     {
         mFragments.add(fragment);
         mTitles.add(title);
+        notifyDataSetChanged();
     }
 
     @Override public Fragment getItem(int position)

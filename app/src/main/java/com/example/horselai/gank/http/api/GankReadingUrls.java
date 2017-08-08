@@ -11,7 +11,7 @@ public interface GankReadingUrls
     ///////////////////////////////////////////////////////////////////////////
     // 资讯
     ///////////////////////////////////////////////////////////////////////////
-    String URL36KR = "http://gank.io/xiandu/diediedie";
+    String URL_36KR = "http://gank.io/xiandu/diediedie";
     String URL_BUSINESS_GROUP = "http://gank.io/xiandu/view/cyzone";
     String URL_ZHIHU_DAILY = "http://gank.io/xiandu/view/zhihu";
     String URL_IDEAL_LIFE = "http://gank.io/xiandu/view/toodaylab";

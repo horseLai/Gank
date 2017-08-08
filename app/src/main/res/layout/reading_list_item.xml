@@ -2,8 +2,10 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="10dp">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    android:background="@drawable/list_item_bg_tint_selector"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/tv_title"
@@ -12,23 +14,35 @@
         android:lines="2"
         android:ellipsize="end"
         android:textColor="@color/lightBlack"
-        android:textSize="15sp"
+        android:textSize="16sp"
         />
 
 
     <TextView
-
         android:id="@+id/tv_label"
         style="@style/StyleWWParent"
         android:layout_below="@id/tv_title"
-        android:background="@drawable/"
-        android:paddingBottom="2dp"
+        android:background="@drawable/label_shape"
+        android:paddingBottom="1dp"
         android:paddingEnd="5dp"
         android:paddingStart="5dp"
-        android:paddingTop="2dp"
+        android:paddingTop="1dp"
         android:text="36Kr"
+        android:textColor="@color/cardViewWhite"
         android:layout_marginTop="10dp"
-        android:textSize="15sp"
+        android:textSize="12sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        style="@style/StyleWWParent"
+        android:text="时间"
+        android:layout_alignBaseline="@id/tv_label"
+        android:layout_toEndOf="@id/tv_label"
+        android:ellipsize="end"
+        android:layout_marginStart="10dp"
+        android:textSize="13sp"
         />
 
 

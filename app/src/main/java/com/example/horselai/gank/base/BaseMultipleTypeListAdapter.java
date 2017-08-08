@@ -15,6 +15,7 @@ import com.example.horselai.gank.http.loader.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 /**
@@ -145,7 +146,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     }
 
 
-    public void insertItemsIntoFootPos(ArrayList<T> items)
+    public void insertItemsIntoFootPos(List<T> items)
     {
         insertItemsIntoIndex(mDataList.size(), items);
     }
@@ -166,7 +167,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         }
     }
 
-    public void insertItemsIntoIndex(int index, ArrayList<T> items)
+    public void insertItemsIntoIndex(int index, List<T> items)
     {
         if (items != null && !items.isEmpty()) {
             mDataList.addAll(index, items);

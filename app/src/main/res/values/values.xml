@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="navigation_view_auto_hide_behavior">com.example.horselai.gank.impl.NavigationAutoHideBehavior</string>
+    <string name="fab_auto_hide_behavior">com.example.horselai.gank.impl.FabAutoHideBehavior</string>
 </resources>

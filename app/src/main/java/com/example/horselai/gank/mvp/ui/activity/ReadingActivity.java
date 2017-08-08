@@ -9,6 +9,12 @@ import android.view.View;
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.AppbarActivity;
 import com.example.horselai.gank.base.BaseFragmentStatePagerAdapter;
+import com.example.horselai.gank.mvp.ui.fragment.Reading36KrFragment;
+import com.example.horselai.gank.mvp.ui.fragment.ReadingBusinessFragment;
+import com.example.horselai.gank.mvp.ui.fragment.ReadingEnglandLifeFragment;
+import com.example.horselai.gank.mvp.ui.fragment.ReadingIdealLifeFragment;
+import com.example.horselai.gank.mvp.ui.fragment.ReadingJianDanFragment;
+import com.example.horselai.gank.mvp.ui.fragment.ReadingZhiHuFragment;
 
 public class ReadingActivity extends AppbarActivity
 {
@@ -34,6 +40,11 @@ public class ReadingActivity extends AppbarActivity
     {
         super.onCreate(savedInstanceState);
 
+        getToolbar().setLogo(R.drawable.logo_work);
+        getBarTitleView().setText("   闲读");
+
+
+
         setupViewPager();
     }
 
@@ -45,10 +56,13 @@ public class ReadingActivity extends AppbarActivity
         tabs.setupWithViewPager(vpContainer);
 
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new Reading36KrFragment(), "36Kr");
+        adapter.addFragment(new ReadingBusinessFragment(), "创业邦");
+        adapter.addFragment(new ReadingZhiHuFragment(), "知乎日报");
+        adapter.addFragment(new ReadingEnglandLifeFragment(), "英国那些事");
+        adapter.addFragment(new ReadingIdealLifeFragment(), "理想生活");
+        adapter.addFragment(new ReadingJianDanFragment(), "煎蛋");
         vpContainer.setAdapter(adapter);
-
-        // adapter.addFragment();
-
 
     }
 

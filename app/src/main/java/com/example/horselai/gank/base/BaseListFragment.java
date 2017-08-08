@@ -138,7 +138,7 @@ public abstract class BaseListFragment<T extends BeanEntry> extends BaseFragment
     @Override public void onLoadFailed(Exception e)
     {
         mRefresherHelper.stopRefreshing();
-        showSnackBar("没有浏览记录！(●ˇ∀ˇ●)");
+        showSnackBar(e.getMessage());
     }
 
 

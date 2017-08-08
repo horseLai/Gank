@@ -77,7 +77,7 @@ public abstract class AppbarSearchActivity extends AppbarActivity implements ISe
             mSearchPopup.setFocusable(true);
             mSearchPopup.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             mSearchPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_FROM_FOCUSABLE);
-            mSearchPopup.setAnimationStyle(R.style.searchPopupAnimationStyle);
+            //mSearchPopup.setAnimationStyle(R.style.searchPopupAnimationStyle);
             initListView(popupView);
 
 

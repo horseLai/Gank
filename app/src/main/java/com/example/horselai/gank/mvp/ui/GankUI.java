@@ -140,7 +140,7 @@ public class GankUI
 
     public static int getCategoryDrawableResId(String category)
     {
-        int id = R.drawable.ic_android_teal;
+        int id = R.drawable.ic_news_teal;
         switch (category) {
             case GankApi.ANDROID:
                 id = R.drawable.ic_android_teal;

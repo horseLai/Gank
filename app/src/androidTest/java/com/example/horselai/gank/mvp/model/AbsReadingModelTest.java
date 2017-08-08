@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class AbsReadingModelTest
 {
 
-    private final BusinessModel mModel;
+    private final ReadingModel mModel;
 
     public AbsReadingModelTest()
     {
-        mModel = new BusinessModel();
+        mModel = new ReadingModel();
     }
 
     @Test public void fetchDisplayList() throws Exception

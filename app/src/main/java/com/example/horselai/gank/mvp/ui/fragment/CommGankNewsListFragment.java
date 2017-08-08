@@ -17,6 +17,7 @@ import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.RefresherHelper;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by horseLai on 2017/7/26.
@@ -67,8 +68,14 @@ public abstract class CommGankNewsListFragment extends BaseListFragment<GankNews
 
         addListener(refresherHelper);
 
-        doUpdateDataList();
-        showSnackBar("正在加载数据！ฅʕ•̫͡•ʔฅ");
+        //恢复数据
+        if (savedInstanceState == null) {
+            doUpdateDataList();
+            showSnackBar("正在加载数据！ฅʕ•̫͡•ʔฅ");
+        } else {
+            mAdapter.removeAllItems();
+            mAdapter.insertItemsIntoFootPos((LinkedList<GankNews>) savedInstanceState.getSerializable("data"));
+        }
     }
 
     protected abstract void doUpdateDataList();
@@ -126,10 +133,17 @@ public abstract class CommGankNewsListFragment extends BaseListFragment<GankNews
     @Override public void onLoadFailed(Exception e)
     {
         e.printStackTrace();
-        showSnackBar("没有加载到数据！(*/ω＼*)");
+        showSnackBar(e.getMessage());
         mRefresherHelper.stopRefreshing();
     }
 
+
+    @Override public void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putSerializable("data", mAdapter.getDataList());
+    }
 
     @Override public void onDestroy()
     {
