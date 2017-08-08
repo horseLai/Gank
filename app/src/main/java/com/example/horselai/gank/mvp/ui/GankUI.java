@@ -11,8 +11,11 @@ import com.example.horselai.gank.bean.GankNews;
 import com.example.horselai.gank.http.api.GankApi;
 import com.example.horselai.gank.mvp.ui.activity.AllCategoriesActivity;
 import com.example.horselai.gank.mvp.ui.activity.BeautyGalleryActivity;
+import com.example.horselai.gank.mvp.ui.activity.BlogActivity;
 import com.example.horselai.gank.mvp.ui.activity.DayRecommendActivity;
 import com.example.horselai.gank.mvp.ui.activity.ImageActivity;
+import com.example.horselai.gank.mvp.ui.activity.ReadingActivity;
+import com.example.horselai.gank.mvp.ui.activity.ThoughtActivity;
 import com.example.horselai.gank.mvp.ui.activity.WebActivity;
 import com.example.horselai.gank.service.ScanHistoryService;
 import com.example.horselai.gank.util.Utils;
@@ -162,5 +165,21 @@ public class GankUI
                 break;
         }
         return id;
+    }
+
+    public static void startBusinessActivity(Context mContext)
+    {
+        Utils.startActivity(mContext, ReadingActivity.class);
+    }
+
+    public static void startBlogActivity(Context mContext)
+    {
+        Utils.startActivity(mContext, BlogActivity.class);
+
+    }
+
+    public static void startThoughtActivity(Context mContext)
+    {
+        Utils.startActivity(mContext, ThoughtActivity.class);
     }
 }

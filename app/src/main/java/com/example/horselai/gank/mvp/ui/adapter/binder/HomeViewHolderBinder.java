@@ -173,6 +173,10 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             itemView.findViewById(R.id.tv_cat_all).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_day_recommend).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_beauty).setOnClickListener(this);
+            //itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
+            itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
+            itemView.findViewById(R.id.tv_cat_thought).setOnClickListener(this);
+            itemView.findViewById(R.id.tv_cat_thought).setOnClickListener(this);
         }
 
         @Override public void onClick(View v)
@@ -188,6 +192,22 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
                 }
                 case R.id.tv_cat_day_recommend: {
                     GankUI.startDayRecommendActivity(mContext);
+                    break;
+                }
+                /*case R.id.tv_cat_reading: {
+                    GankUI.startBusinessActivity(mContext);
+                    break;
+                }*/
+                case R.id.tv_cat_reading: {
+                    GankUI.startBusinessActivity(mContext);
+                    break;
+                }
+                case R.id.tv_cat_blog: {
+                    GankUI.startBlogActivity(mContext);
+                    break;
+                }
+                case R.id.tv_cat_thought: {
+                    GankUI.startThoughtActivity(mContext);
                     break;
                 }
             }

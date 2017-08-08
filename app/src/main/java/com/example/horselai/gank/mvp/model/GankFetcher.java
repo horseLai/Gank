@@ -243,7 +243,7 @@ public final class GankFetcher
             // 开始 解析数据
             final SparseArray<Object> commItems = new SparseArray<>();
             final JsonObject results = rootObj.get("results").getAsJsonObject();
-            final JsonArray category = rootObj.get("category").getAsJsonArray();
+            final JsonArray category = rootObj.get("source").getAsJsonArray();
             if (JsonUtil.isJsonNull(results) || JsonUtil.isEmpty(category)) return null;
 
             Log.i(TAG, "fetchGankByDate: 组合界面数据");
@@ -309,7 +309,7 @@ public final class GankFetcher
                 news.source = "未知";
             }
 
-            Log.i(TAG, "parseGankNews: news.who = " + news.who);
+            Log.i(TAG, "parseGankNews: ic_news_white.who = " + news.who);
             news.type = obj.get("type").getAsString();
             news.url = obj.get("url").getAsString();
             news.image = beauties.get(beautyIndex++).url;
@@ -535,7 +535,7 @@ public final class GankFetcher
 
 
     public static final String SEARCH_TOTAL = "total";
-    public static final String SEARCH_CATEGORY = "category";
+    public static final String SEARCH_CATEGORY = "source";
     public static final String SEARCH_DATA = "data";
 
 

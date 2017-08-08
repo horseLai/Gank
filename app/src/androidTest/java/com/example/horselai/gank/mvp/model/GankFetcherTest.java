@@ -28,7 +28,7 @@ public class GankFetcherTest
             return;
         }
 
-        Log.i(TAG, "search: category: " + search.get(GankFetcher.SEARCH_CATEGORY));
+        Log.i(TAG, "search: source: " + search.get(GankFetcher.SEARCH_CATEGORY));
         Log.i(TAG, "search: total : " + search.get(GankFetcher.SEARCH_TOTAL));
         ArrayList<GankSearch> result = (ArrayList<GankSearch>) search.get(GankFetcher.SEARCH_DATA);
 

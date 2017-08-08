@@ -5,46 +5,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="15dp"
-    android:layout_marginStart="2dp"
     android:layout_marginEnd="2dp"
+    android:layout_marginStart="2dp"
+    android:layout_marginTop="15dp"
     app:cardBackgroundColor="@color/grayBlue"
-    app:contentPadding="5dp"
     app:cardCornerRadius="1dp"
     app:cardElevation="1dp"
+    app:contentPadding="5dp"
     >
 
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:id="@+id/tv_cat_day_recommend"
-            style="@style/HomeCategoryBarTextStyle"
-            android:drawablePadding="3dp"
-            android:drawableTop="@drawable/ic_bottom_recommend_white"
-            android:text="日推"
-            />
-
-        <TextView
-            android:id="@+id/tv_cat_beauty"
-            style="@style/HomeCategoryBarTextStyle"
-            android:drawableTop="@drawable/ic_beauty_white"
-            android:text="妹纸"
-            />
-
-        <TextView
-            android:id="@+id/tv_cat_all"
-            style="@style/HomeCategoryBarTextStyle"
-            android:drawableTop="@drawable/ic_category_white"
-            android:text="汇总"
-            />
+        android:layout_height="match_parent">
 
 
-    </LinearLayout>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
 
+            <TextView
+                android:id="@+id/tv_cat_day_recommend"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_bottom_recommend_white"
+                android:text="@string/recommend"
+                />
+
+            <TextView
+                android:id="@+id/tv_cat_beauty"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_beauty_white"
+                android:text="@string/beauty"
+                />
+
+            <TextView
+                android:id="@+id/tv_cat_all"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_category_white"
+                android:text="@string/gank"
+                />
+
+
+            <!--<TextView
+                android:id="@+id/tv_cat_reading"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_news_white"
+                android:text="@string/reading"
+                />-->
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/top"
+            android:paddingTop="8dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/tv_cat_reading"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_news_white"
+                android:text="@string/reading"
+                />
+
+            <TextView
+                android:id="@+id/tv_cat_blog"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_blog_white"
+                android:text="@string/blog"
+                />
+
+            <TextView
+                android:id="@+id/tv_cat_thought"
+                style="@style/HomeCategoryBarTextStyle"
+                android:drawableTop="@drawable/ic_idea_white"
+                android:text="@string/thought"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -10,7 +10,7 @@
     <string name="title_activity_web">WebActivity</string>
 
     <!--菜单-->
-    <string name="title_home">推荐</string>
+    <string name="title_home">首页</string>
     <string name="title_history">记录</string>
     <string name="title_about">关于</string>
 
@@ -87,6 +87,16 @@
     </string>
     <string name="web_menu">菜单</string>
     <string name="clean_history">清空历史数据</string>
+
+
+    <!--home source bar-->
+    <string name="recommend">日推</string>
+    <string name="beauty">妹纸</string>
+    <string name="gank">干货</string>
+    <string name="budiness">创业</string>
+    <string name="blog">博客</string>
+    <string name="thought">思想</string>
+    <string name="reading">闲读</string>
 
 
 </resources>

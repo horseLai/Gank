@@ -73,7 +73,7 @@ public class ScanHistoryService extends IntentService
     private boolean contains(String table, GankNews news)
     {
         final String sql = "select * from " + table + " where url is ? ;";
-        // final GankNews gankNews = mDbManager.findSingle(sql, new String[]{news.url});
+        // final GankNews gankNews = mDbManager.findSingle(sql, new String[]{ic_news_white.url});
         //Log.i(TAG, "contains: " + gankNews);
         return mDbManager.findSingle(sql, new String[]{news.url}) != null;
     }

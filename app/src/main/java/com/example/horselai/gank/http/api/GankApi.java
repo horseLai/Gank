@@ -110,6 +110,6 @@ public final class GankApi
     //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
     public static String apiSearch(String keyWords, String category, int count, int page)
     {
-        return "http://gank.io/api/search/query/" + Utils.urlEncodeUTF8(keyWords) + "/category/" + Utils.urlEncodeUTF8(category) + "/count/" + count + "/page/" + page;
+        return "http://gank.io/api/search/query/" + Utils.urlEncodeUTF8(keyWords) + "/source/" + Utils.urlEncodeUTF8(category) + "/count/" + count + "/page/" + page;
     }
 }

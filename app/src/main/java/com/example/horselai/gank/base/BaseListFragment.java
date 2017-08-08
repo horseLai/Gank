@@ -83,8 +83,6 @@ public abstract class BaseListFragment<T extends BeanEntry> extends BaseFragment
     protected abstract BaseViewHolderBinder<T> onCreateViewHolderBinder();
 
 
-    protected abstract void onFragmentListInitOk(View savedInstanceState, Bundle bundle, RecyclerView rvList, RefresherHelper refresherHelper, AbsSuperPresenter presenter, BaseMultipleTypeListAdapter<T> adapter, BaseViewHolderBinder<T> vhBinder);
-
 
     public void setOnScrollListener(RecyclerView.OnScrollListener listener)
     {
@@ -125,6 +123,8 @@ public abstract class BaseListFragment<T extends BeanEntry> extends BaseFragment
 
     public abstract BaseMultipleTypeListAdapter<T> onCreateAdapter();
 
+
+    protected abstract void onFragmentListInitOk(View savedInstanceState, Bundle bundle, RecyclerView rvList, RefresherHelper refresherHelper, AbsSuperPresenter presenter, BaseMultipleTypeListAdapter<T> adapter, BaseViewHolderBinder<T> vhBinder);
 
     /**
      * @param data

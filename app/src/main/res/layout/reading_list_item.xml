@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/StyleWWParent"
+        android:text="标题"
+        android:lines="2"
+        android:ellipsize="end"
+        android:textColor="@color/lightBlack"
+        android:textSize="15sp"
+        />
+
+
+    <TextView
+
+        android:id="@+id/tv_label"
+        style="@style/StyleWWParent"
+        android:layout_below="@id/tv_title"
+        android:background="@drawable/"
+        android:paddingBottom="2dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:paddingTop="2dp"
+        android:text="36Kr"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        />
+
+
+</RelativeLayout>

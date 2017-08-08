@@ -17,7 +17,6 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/AppTheme">
         <activity
             android:name=".mvp.ui.activity.MainActivity"
@@ -32,44 +31,50 @@
         </activity>
         <activity
             android:name=".mvp.ui.activity.WebActivity"
-            android:label="@string/title_activity_web"
-            android:hardwareAccelerated="false"
             android:configChanges="orientation|screenSize|keyboard"
+            android:hardwareAccelerated="false"
+            android:label="@string/title_activity_web"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:hardwareAccelerated="true"
             android:name=".mvp.ui.activity.ImageActivity"
+            android:hardwareAccelerated="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:hardwareAccelerated="true"
             android:name=".mvp.ui.activity.DayRecommendActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:hardwareAccelerated="true"
             android:name=".mvp.ui.activity.BeautyGalleryActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
-            android:hardwareAccelerated="true"
             android:name=".mvp.ui.activity.AllCategoriesActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
 
         <service
             android:name=".service.ScanHistoryService"
             android:exported="false"
             android:label="history service"
-            android:stopWithTask="true"
-            >
+            android:stopWithTask="true">
         </service>
+
+        <activity android:name=".mvp.ui.activity.ReadingActivity">
+        </activity>
+        <activity android:name=".mvp.ui.activity.BlogActivity">
+        </activity>
+        <activity android:name=".mvp.ui.activity.ThoughtActivity">
+        </activity>
     </application>
 
 </manifest>
