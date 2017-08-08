@@ -3,6 +3,7 @@ package com.example.horselai.gank.mvp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.app.App;
@@ -141,6 +142,7 @@ public class GankUI
     public static int getCategoryDrawableResId(String category)
     {
         int id = R.drawable.ic_news_teal;
+        if (TextUtils.isEmpty(category)) return id;
         switch (category) {
             case GankApi.ANDROID:
                 id = R.drawable.ic_android_teal;

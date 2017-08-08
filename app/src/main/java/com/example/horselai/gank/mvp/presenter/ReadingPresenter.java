@@ -16,12 +16,23 @@ import java.util.ArrayList;
 
 public class ReadingPresenter extends AbsSuperPresenter<ArrayList<GankReading>>
 {
+    //********************闲读*******************
     public static final int TYPE_36KR = 1;
     public static final int TYPE_BUSINESS = 2;
     public static final int TYPE_ZHIHU_DAILY = 3;
     public static final int TYPE_IDEAL_LIF = 4;
     public static final int TYPE_JIANDAN = 5;
     public static final int TYPE_ENGLAND_LIFE = 6;
+
+    //********************博客*******************
+    public static final int TYPE_MEITUAN = 7;
+    public static final int TYPE_GLOWING = 8;
+    public static final int TYPE_O2IO = 9;
+    public static final int TYPE_REALM = 10;
+    public static final int TYPE_MOGU = 11;
+    public static final int TYPE_PRODUCT = 12;
+
+
     private final ReadingModel mModel;
 
 
@@ -78,6 +89,21 @@ public class ReadingPresenter extends AbsSuperPresenter<ArrayList<GankReading>>
 
             case TYPE_ENGLAND_LIFE:
                 return mModel.fetchDisplayList(GankReadingUrls.URL_ENGLAND_LIFE, pageNum);
+
+            case TYPE_MEITUAN:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_MEITUAN, pageNum);
+            case TYPE_PRODUCT:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_PRODUCT, pageNum);
+            case TYPE_GLOWING:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_GLOWING, pageNum);
+
+            case TYPE_O2IO:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_AUTO_IO, pageNum);
+
+            case TYPE_REALM:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_REALM, pageNum);
+            case TYPE_MOGU:
+                return mModel.fetchDisplayList(GankReadingUrls.URL_MOGU, pageNum);
 
         }
         return null;

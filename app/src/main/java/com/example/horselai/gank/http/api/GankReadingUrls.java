@@ -26,7 +26,7 @@ public interface GankReadingUrls
 
 
     ///////////////////////////////////////////////////////////////////////////
-    // 博客
+    // 团队博客
     ///////////////////////////////////////////////////////////////////////////
 
     String URL_MEITUAN = "http://gank.io/xiandu/view/meituan";
@@ -34,5 +34,6 @@ public interface GankReadingUrls
     String URL_MOGU = "http://gank.io/xiandu/view/mogu";
     String URL_AUTO_IO = "http://gank.io/xiandu/view/aotu";
     String URL_REALM = "http://gank.io/xiandu/view/realm";
+    String URL_PRODUCT = "http://gank.io/xiandu/view/woshipm";
 
 }

@@ -176,7 +176,7 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             //itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_thought).setOnClickListener(this);
-            itemView.findViewById(R.id.tv_cat_thought).setOnClickListener(this);
+            itemView.findViewById(R.id.tv_cat_blog).setOnClickListener(this);
         }
 
         @Override public void onClick(View v)

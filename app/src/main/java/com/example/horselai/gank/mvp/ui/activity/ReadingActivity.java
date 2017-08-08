@@ -19,7 +19,6 @@ import com.example.horselai.gank.mvp.ui.fragment.ReadingZhiHuFragment;
 public class ReadingActivity extends AppbarActivity
 {
 
-
     @Override protected boolean homeAsUpEnable()
     {
         return true;
@@ -41,7 +40,7 @@ public class ReadingActivity extends AppbarActivity
         super.onCreate(savedInstanceState);
 
         getToolbar().setLogo(R.drawable.logo_work);
-        getBarTitleView().setText("   闲读");
+        getBarTitleView().setText("  闲读");
 
 
 
@@ -57,8 +56,8 @@ public class ReadingActivity extends AppbarActivity
 
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new Reading36KrFragment(), "36Kr");
-        adapter.addFragment(new ReadingBusinessFragment(), "创业邦");
         adapter.addFragment(new ReadingZhiHuFragment(), "知乎日报");
+        adapter.addFragment(new ReadingBusinessFragment(), "创业邦");
         adapter.addFragment(new ReadingEnglandLifeFragment(), "英国那些事");
         adapter.addFragment(new ReadingIdealLifeFragment(), "理想生活");
         adapter.addFragment(new ReadingJianDanFragment(), "煎蛋");
