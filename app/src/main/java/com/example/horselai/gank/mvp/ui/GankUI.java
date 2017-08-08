@@ -14,9 +14,9 @@ import com.example.horselai.gank.mvp.ui.activity.AllCategoriesActivity;
 import com.example.horselai.gank.mvp.ui.activity.BeautyGalleryActivity;
 import com.example.horselai.gank.mvp.ui.activity.BlogActivity;
 import com.example.horselai.gank.mvp.ui.activity.DayRecommendActivity;
+import com.example.horselai.gank.mvp.ui.activity.EquipmentActivity;
 import com.example.horselai.gank.mvp.ui.activity.ImageActivity;
 import com.example.horselai.gank.mvp.ui.activity.ReadingActivity;
-import com.example.horselai.gank.mvp.ui.activity.ThoughtActivity;
 import com.example.horselai.gank.mvp.ui.activity.WebActivity;
 import com.example.horselai.gank.service.ScanHistoryService;
 import com.example.horselai.gank.util.Utils;
@@ -182,6 +182,6 @@ public class GankUI
 
     public static void startThoughtActivity(Context mContext)
     {
-        Utils.startActivity(mContext, ThoughtActivity.class);
+        Utils.startActivity(mContext, EquipmentActivity.class);
     }
 }

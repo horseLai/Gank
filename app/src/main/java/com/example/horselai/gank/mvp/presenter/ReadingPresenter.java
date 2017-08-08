@@ -23,6 +23,8 @@ public class ReadingPresenter extends AbsSuperPresenter<ArrayList<GankReading>>
     public static final int TYPE_IDEAL_LIF = 4;
     public static final int TYPE_JIANDAN = 5;
     public static final int TYPE_ENGLAND_LIFE = 6;
+    public static final int TYPE_CURIOSITY = 13;
+    public static final int TYPE_YUEGUANG = 20;
 
     //********************博客*******************
     public static final int TYPE_MEITUAN = 7;
@@ -31,6 +33,14 @@ public class ReadingPresenter extends AbsSuperPresenter<ArrayList<GankReading>>
     public static final int TYPE_REALM = 10;
     public static final int TYPE_MOGU = 11;
     public static final int TYPE_PRODUCT = 12;
+    public static final int TYPE_LUANXIANG = 19;
+
+    //********************装备*******************
+    public static final int TYPE_DIGITAL = 14;
+    public static final int TYPE_LIQI = 15;
+    public static final int TYPE_APP_MINORITY = 16;
+    public static final int TYPE_MAC_PLAY = 17;
+    public static final int TYPE_APP_ANTI = 18;
 
 
     private final ReadingModel mModel;
@@ -70,43 +80,63 @@ public class ReadingPresenter extends AbsSuperPresenter<ArrayList<GankReading>>
 
     private ArrayList<GankReading> getGankReadings(int type, int pageNum)
     {
+        final String url = decideUrl(type);
+        return mModel.fetchDisplayList(url, pageNum);
+    }
+
+    private String decideUrl(int type)
+    {
         switch (type) {
 
+            //*********************************************
             case TYPE_36KR:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_36KR, pageNum);
-
+                return GankReadingUrls.URL_36KR;
             case TYPE_BUSINESS:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_BUSINESS_GROUP, pageNum);
-
+                return GankReadingUrls.URL_BUSINESS_GROUP;
             case TYPE_ZHIHU_DAILY:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_ZHIHU_DAILY, pageNum);
-
+                return GankReadingUrls.URL_ZHIHU_DAILY;
             case TYPE_IDEAL_LIF:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_IDEAL_LIFE, pageNum);
-
+                return GankReadingUrls.URL_IDEAL_LIFE;
             case TYPE_JIANDAN:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_JIANDAN, pageNum);
-
+                return GankReadingUrls.URL_JIANDAN;
             case TYPE_ENGLAND_LIFE:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_ENGLAND_LIFE, pageNum);
+                return GankReadingUrls.URL_ENGLAND_LIFE;
+            case TYPE_CURIOSITY:
+                return GankReadingUrls.URL_CURIOSITY_DAILY;
 
+            //**************************************************
             case TYPE_MEITUAN:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_MEITUAN, pageNum);
+                return GankReadingUrls.URL_MEITUAN;
             case TYPE_PRODUCT:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_PRODUCT, pageNum);
+                return GankReadingUrls.URL_PRODUCT;
             case TYPE_GLOWING:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_GLOWING, pageNum);
-
+                return GankReadingUrls.URL_GLOWING;
             case TYPE_O2IO:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_AUTO_IO, pageNum);
-
+                return GankReadingUrls.URL_AUTO_IO;
             case TYPE_REALM:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_REALM, pageNum);
+                return GankReadingUrls.URL_REALM;
             case TYPE_MOGU:
-                return mModel.fetchDisplayList(GankReadingUrls.URL_MOGU, pageNum);
+                return GankReadingUrls.URL_MOGU;
+            case TYPE_LUANXIANG:
+                return GankReadingUrls.URL_LUANXIANG;
+            case TYPE_YUEGUANG:
+                return GankReadingUrls.URL_YUEGUANG;
 
+            //**************************************************
+            case TYPE_APP_MINORITY:
+                return GankReadingUrls.URL_APP_MINORITY;
+            case TYPE_LIQI:
+                return GankReadingUrls.URL_LIQI;
+            case TYPE_DIGITAL:
+                return GankReadingUrls.URL_DIGITAL;
+            case TYPE_MAC_PLAY:
+                return GankReadingUrls.URL_MAC_PLAY;
+            case TYPE_APP_ANTI:
+                return GankReadingUrls.URL_APP_ANTI;
+
+            default:
+                return GankReadingUrls.URL_36KR;
         }
-        return null;
     }
 
 

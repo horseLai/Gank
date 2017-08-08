@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.horselai.gank.mvp.ui.activity.ThoughtActivity">
+    tools:context="com.example.horselai.gank.mvp.ui.activity.EquipmentActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -10,11 +10,12 @@ import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.AppbarActivity;
 import com.example.horselai.gank.base.BaseFragmentStatePagerAdapter;
 import com.example.horselai.gank.mvp.ui.fragment.BlogGlowingFragment;
+import com.example.horselai.gank.mvp.ui.fragment.BlogLuanXiangFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogMeituanFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogMoguFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogO2IoFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogProductFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogRealmFragment;
+import com.example.horselai.gank.mvp.ui.fragment.BlogYueGuangFragment;
 
 public class BlogActivity extends AppbarActivity
 {
@@ -40,7 +41,7 @@ public class BlogActivity extends AppbarActivity
         super.onCreate(savedInstanceState);
 
         getToolbar().setLogo(R.drawable.logo_work);
-        getBarTitleView().setText("  团队博客");
+        getBarTitleView().setText("  博客");
 
         setupViewPager();
     }
@@ -55,10 +56,11 @@ public class BlogActivity extends AppbarActivity
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BlogProductFragment(), "产品");
         adapter.addFragment(new BlogMeituanFragment(), "美团");
-        adapter.addFragment(new BlogRealmFragment(), "Realm团队");
-        adapter.addFragment(new BlogGlowingFragment(), "Glow");
         adapter.addFragment(new BlogO2IoFragment(), "Auto.Io");
+        adapter.addFragment(new BlogGlowingFragment(), "Glow");
         adapter.addFragment(new BlogMoguFragment(), "蘑菇街");
+        adapter.addFragment(new BlogLuanXiangFragment(), "乱象");
+        adapter.addFragment(new BlogYueGuangFragment(), "月光博客");
         vpContainer.setAdapter(adapter);
 
     }

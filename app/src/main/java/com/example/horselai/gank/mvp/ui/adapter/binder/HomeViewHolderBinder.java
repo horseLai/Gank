@@ -175,7 +175,7 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             itemView.findViewById(R.id.tv_cat_beauty).setOnClickListener(this);
             //itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_reading).setOnClickListener(this);
-            itemView.findViewById(R.id.tv_cat_thought).setOnClickListener(this);
+            itemView.findViewById(R.id.tv_cat_equipment).setOnClickListener(this);
             itemView.findViewById(R.id.tv_cat_blog).setOnClickListener(this);
         }
 
@@ -206,7 +206,7 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
                     GankUI.startBlogActivity(mContext);
                     break;
                 }
-                case R.id.tv_cat_thought: {
+                case R.id.tv_cat_equipment: {
                     GankUI.startThoughtActivity(mContext);
                     break;
                 }

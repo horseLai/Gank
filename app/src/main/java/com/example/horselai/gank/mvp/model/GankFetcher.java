@@ -243,7 +243,7 @@ public final class GankFetcher
             // 开始 解析数据
             final SparseArray<Object> commItems = new SparseArray<>();
             final JsonObject results = rootObj.get("results").getAsJsonObject();
-            final JsonArray category = rootObj.get("source").getAsJsonArray();
+            final JsonArray category = rootObj.get("category").getAsJsonArray();
             if (JsonUtil.isJsonNull(results) || JsonUtil.isEmpty(category)) return null;
 
             Log.i(TAG, "fetchGankByDate: 组合界面数据");

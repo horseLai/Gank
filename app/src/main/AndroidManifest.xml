@@ -73,7 +73,7 @@
         </activity>
         <activity android:name=".mvp.ui.activity.BlogActivity">
         </activity>
-        <activity android:name=".mvp.ui.activity.ThoughtActivity">
+        <activity android:name=".mvp.ui.activity.EquipmentActivity">
         </activity>
     </application>
 

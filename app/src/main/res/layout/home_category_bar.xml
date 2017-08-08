@@ -81,10 +81,10 @@
                 />
 
             <TextView
-                android:id="@+id/tv_cat_thought"
+                android:id="@+id/tv_cat_equipment"
                 style="@style/HomeCategoryBarTextStyle"
-                android:drawableTop="@drawable/ic_idea_white"
-                android:text="@string/thought"
+                android:drawableTop="@drawable/ic_equipment_white"
+                android:text="@string/equipment"
                 />
 
 

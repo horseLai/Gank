@@ -18,15 +18,20 @@ public interface GankReadingUrls
     String URL_CURIOSITY_DAILY = "http://gank.io/xiandu/view/qdaily";
     String URL_JIANDAN = "http://gank.io/xiandu/view/jandan";
     String URL_ENGLAND_LIFE = "http://gank.io/xiandu/view/hereinuk";
+    String URL_YUEGUANG = "http://gank.io/xiandu/view/williamlong";
 
 
     ///////////////////////////////////////////////////////////////////////////
-    // 思想
+    // 装备
     ///////////////////////////////////////////////////////////////////////////
-
+    String URL_DIGITAL = "http://gank.io/xiandu/view/dgtle";
+    String URL_LIQI = "http://gank.io/xiandu/view/liqi";
+    String URL_APP_MINORITY = "http://gank.io/xiandu/view/appinn";
+    String URL_APP_ANTI = "http://gank.io/xiandu/view/apprcn";
+    String URL_MAC_PLAY = "http://gank.io/xiandu/view/waerfa";
 
     ///////////////////////////////////////////////////////////////////////////
-    // 团队博客
+    // 博客
     ///////////////////////////////////////////////////////////////////////////
 
     String URL_MEITUAN = "http://gank.io/xiandu/view/meituan";
@@ -35,5 +40,6 @@ public interface GankReadingUrls
     String URL_AUTO_IO = "http://gank.io/xiandu/view/aotu";
     String URL_REALM = "http://gank.io/xiandu/view/realm";
     String URL_PRODUCT = "http://gank.io/xiandu/view/woshipm";
+    String URL_LUANXIANG = "http://gank.io/xiandu/view/luanxiang";
 
 }
