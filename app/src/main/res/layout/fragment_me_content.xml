@@ -111,7 +111,7 @@
                 style="@style/AboutItemStyle"
                 android:layout_below="@id/tv_licence"
                 android:drawableStart="@drawable/ic_developer_teal"
-                android:text="开发者  @horseLai"
+                android:text="开发者"
                 />
 
 

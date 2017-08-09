@@ -44,7 +44,6 @@ public class ReadingActivity extends AppbarActivity
         getBarTitleView().setText("  闲读");
 
 
-
         setupViewPager();
     }
 

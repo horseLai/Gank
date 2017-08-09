@@ -62,19 +62,36 @@
             android:screenOrientation="portrait">
         </activity>
 
+        <activity
+            android:name=".mvp.ui.activity.ReadingActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.ui.activity.ReadingDetailActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".mvp.ui.activity.BlogActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".mvp.ui.activity.EquipmentActivity"
+            android:hardwareAccelerated="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+
         <service
             android:name=".service.ScanHistoryService"
             android:exported="false"
             android:label="history service"
             android:stopWithTask="true">
         </service>
-
-        <activity android:name=".mvp.ui.activity.ReadingActivity">
-        </activity>
-        <activity android:name=".mvp.ui.activity.BlogActivity">
-        </activity>
-        <activity android:name=".mvp.ui.activity.EquipmentActivity">
-        </activity>
     </application>
 
 </manifest>

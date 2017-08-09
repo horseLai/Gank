@@ -125,6 +125,10 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
             @Override public void onItemClicked(View v, int position)
             {
                 final GankReading reading = mAdapter.getDataList().get(position);
+                /*if ("知乎日报".equalsIgnoreCase(reading.source)) {
+                    Utils.startActivity(mContext, ReadingDetailActivity.class);
+                    return;
+                }*/
                 App.toastShort(reading.title);
                 final GankNews news = new GankNews();
                 news.url = reading.url;

@@ -10,7 +10,7 @@
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/nest_scroll_parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fadeScrollbars="true"
         android:scrollbarFadeDuration="1500"
         android:scrollbars="vertical"
@@ -20,7 +20,6 @@
             android:id="@+id/web_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <WebView
                 android:id="@+id/web_view"
                 android:layout_width="match_parent"
