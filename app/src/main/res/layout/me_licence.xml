@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="简单介绍"
+            android:text="@string/introduce"
             android:padding="10dp"
             android:textColor="@color/lightBlack"
             android:textSize="14sp"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="致谢开源"
+            android:text="@string/thanks"
             android:padding="10dp"
             android:textColor="@color/lightBlack"
             android:textSize="14sp"

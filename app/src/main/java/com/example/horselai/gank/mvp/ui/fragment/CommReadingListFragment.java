@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.horselai.gank.R;
-import com.example.horselai.gank.app.App;
 import com.example.horselai.gank.base.BaseListFragment;
 import com.example.horselai.gank.base.BaseMultipleTypeListAdapter;
 import com.example.horselai.gank.base.BaseViewHolderBinder;
@@ -129,7 +128,7 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
                     Utils.startActivity(mContext, ReadingDetailActivity.class);
                     return;
                 }*/
-                App.toastShort(reading.title);
+                //App.toastShort(reading.title);
                 final GankNews news = new GankNews();
                 news.url = reading.url;
                 news.desc = reading.title;

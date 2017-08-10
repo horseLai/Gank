@@ -98,6 +98,10 @@
     <string name="thought">思想</string>
     <string name="equipment">装备</string>
     <string name="reading">闲读</string>
+    <string name="introduce">简单介绍</string>
+    <string name="thanks">致谢开源</string>
+    <string name="aboutDeveloper">关于开发者</string>
+    <string name="version">软件版本</string>
 
 
 </resources>
