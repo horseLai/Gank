@@ -15,7 +15,6 @@ import com.example.horselai.gank.mvp.ui.fragment.BlogMeituanFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogMoguFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogO2IoFragment;
 import com.example.horselai.gank.mvp.ui.fragment.BlogProductFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogYueGuangFragment;
 
 public class BlogActivity extends AppbarActivity
 {
@@ -60,7 +59,6 @@ public class BlogActivity extends AppbarActivity
         adapter.addFragment(new BlogGlowingFragment(), "Glow");
         adapter.addFragment(new BlogMoguFragment(), "蘑菇街");
         adapter.addFragment(new BlogLuanXiangFragment(), "乱象");
-        adapter.addFragment(new BlogYueGuangFragment(), "月光博客");
         vpContainer.setAdapter(adapter);
 
     }
