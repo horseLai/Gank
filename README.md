@@ -12,7 +12,8 @@
 # 应用部分截图
 
 <ul>
-<img src="ScreenShort/Screenshot_2017-08-06-20-40-19-842_com.example.ho.png" width="240" height="400"/>
+<img src="ScreenShort/Screenshort_20170810201852.png" width="240" height="400"/> 
+<img src="ScreenShort/Screenshort_201708102018520.png" width="240" height="400"/>
 <img src="ScreenShort/Screenshot_2017-08-06-20-40-36-646_com.example.ho.png" width="240" height="400"/>
 <img src="ScreenShort/Screenshot_2017-08-06-20-41-06-563_com.example.ho.png" width="240" height="400"/>
 <img src="ScreenShort/Screenshot_2017-08-06-20-41-19-124_com.example.ho.png" width="240" height="400"/>
