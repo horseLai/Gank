@@ -229,7 +229,7 @@ public abstract class BaseWebViewActivity extends AppbarActivity implements View
             }
             case R.id.menu_share: {
                 final String title = mBarTitle.getText().toString();
-                Utils.shareTextPlain(this, "来自‘干货集中营’的分享：" + title + "\r\n" + mCurUrl, title);
+                Utils.shareTextPlain(this, "来自‘干货集中营’的分享：\r\n" + title + "\r\n" + mCurUrl, title);
                 break;
             }
             case R.id.web_menu_main: {
