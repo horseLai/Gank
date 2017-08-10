@@ -294,6 +294,9 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
      */
     @Override public void release()
     {
-        if (mTimer != null) mTimer.cancel();
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
     }
 }
