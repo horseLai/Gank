@@ -95,14 +95,12 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
         mWebViewContainer = (FrameLayout) findViewById(R.id.web_view_container);
         mCollapseBar = (CollapsingToolbarLayout) findViewById(R.id.bar_collapse);
 
+        mCollapseBar.setTitleEnabled(false);
 
         //***************************************************************
         mIvBarImage = (ImageView) findViewById(R.id.bar_img);
         mIvBarImage.setOnClickListener(this);
 
-
-        final CollapsingToolbarLayout barCollapse = (CollapsingToolbarLayout) findViewById(R.id.bar_collapse);
-        barCollapse.setTitleEnabled(false);
 
 
         if (TextUtils.isEmpty(mData.image)) {
@@ -198,7 +196,6 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
     @Override public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
-        getAppBarLayout().setExpanded(false);
         switch (newConfig.orientation) {
             case Configuration.ORIENTATION_LANDSCAPE: {
                 getToolbar().setVisibility(View.GONE);
@@ -210,7 +207,6 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
                 break;
             }
             case Configuration.ORIENTATION_PORTRAIT: {
-                getAppBarLayout().setEnabled(true);
                 getAppBarLayout().setVisibility(View.VISIBLE);
                 mCollapseBar.setVisibility(View.VISIBLE);
                 mIvBarImage.setVisibility(View.VISIBLE);
