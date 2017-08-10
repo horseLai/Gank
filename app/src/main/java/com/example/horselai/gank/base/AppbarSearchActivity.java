@@ -313,7 +313,8 @@ public abstract class AppbarSearchActivity extends AppbarActivity implements ISe
             @Override public boolean onMenuItemClick(MenuItem item)
             {
                 //App.toastShort("" + item.getTitle());
-                GankUI.startShare(AppbarSearchActivity.this, getResources().getString(R.string.share_text));
+                final String msg = getResources().getString(R.string.share_text);
+                Utils.shareTextPlain(AppbarSearchActivity.this, msg, msg);
                 return true;
             }
         });

@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.ColorRes;
@@ -270,14 +271,33 @@ public class Utils
     }
 
 
-    public static void shareTextPlain(Context context, String textMsg)
+    public static void shareTextPlain(Context context, String textMsg, String title)
     {
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.putExtra(Intent.EXTRA_TEXT, textMsg);
         intent.setType("text/plain");
 
         if (intent.resolveActivity(context.getPackageManager()) != null)
-            context.startActivity(intent);
+            context.startActivity(Intent.createChooser(intent, title));
+        else Toast.makeText(context, "没有找到能分享的应用！O.O", Toast.LENGTH_SHORT).show();
+
+    }
+
+    /**
+     * 分享图片
+     *
+     * @param context
+     * @param uri
+     * @param title
+     */
+    public static void shareImage(Context context, Uri uri, String title)
+    {
+        final Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.setType("image/jpeg");
+
+        if (intent.resolveActivity(context.getPackageManager()) != null)
+            context.startActivity(Intent.createChooser(intent, title));
         else Toast.makeText(context, "没有找到能分享的应用！O.O", Toast.LENGTH_SHORT).show();
 
     }

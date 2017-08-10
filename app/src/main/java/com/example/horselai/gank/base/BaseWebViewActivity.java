@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.app.App;
-import com.example.horselai.gank.mvp.ui.GankUI;
 import com.example.horselai.gank.util.Utils;
 
 /**
@@ -229,7 +228,7 @@ public abstract class BaseWebViewActivity extends AppbarActivity implements View
                 break;
             }
             case R.id.menu_share: {
-                GankUI.startShare(this, "分享链接：" + mCurUrl);
+                Utils.shareTextPlain(this, "来自‘干货集中营’的分享：" + mCurUrl, mBarTitle.getText().toString());
                 break;
             }
             case R.id.web_menu_main: {

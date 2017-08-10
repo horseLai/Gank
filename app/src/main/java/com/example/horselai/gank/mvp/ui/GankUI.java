@@ -79,11 +79,6 @@ public class GankUI
         }
     }
 
-    public static void startShare(Context context, String textMsg)
-    {
-        Utils.shareTextPlain(context, textMsg);
-    }
-
     public static void startActivityByHeaderLabel(Context context, String label)
     {
         startAllCategoriesActivity(context, getAssociatedPageIndex(label));

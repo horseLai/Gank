@@ -2,6 +2,7 @@ package com.example.horselai.gank.mvp.ui.activity;
 
 import android.app.WallpaperManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,8 @@ import com.example.horselai.gank.mvp.presenter.ImagePresenter;
 import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.FileManager;
 import com.example.horselai.gank.util.Utils;
+
+import java.io.File;
 
 public class ImageActivity extends AppbarActivity implements View.OnClickListener, ISuperView<String>
 {
@@ -133,6 +136,16 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
                 break;
             }
 
+            case R.id.menu_share: {
+                final String picPath = mPresenter.getPicPath(mBeauty.url);
+                final FileManager fileManager = FileManager.getInstance();
+                if (!fileManager.exists(picPath)) {
+                    showSnackBar("图片不存在，请先下载！");
+                    break;
+                }
+                Utils.shareImage(ImageActivity.this, Uri.fromFile(new File(picPath)), "来自‘干货集中营’");
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

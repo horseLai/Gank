@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -12,6 +11,7 @@ import android.webkit.WebView;
 
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.app.App;
+import com.example.horselai.gank.bean.ZhiHuDaily;
 import com.example.horselai.gank.mvp.model.ReadingModel;
 
 /**
@@ -40,9 +40,9 @@ public class ReadingDetailActivity extends AppCompatActivity
 
     private void requestData()
     {
-        new AsyncTask<String, Void, ArrayMap<String, String>>()
+        new AsyncTask<String, Void, ZhiHuDaily>()
         {
-            @Override protected ArrayMap<String, String> doInBackground(String... params)
+            @Override protected ZhiHuDaily doInBackground(String... params)
             {
                 final ReadingModel model = new ReadingModel();
                 final String url = "http://daily.zhihu.com/story/9563136?utm_medium=website&utm_source=gank.io%2Fxiandu";
@@ -50,10 +50,10 @@ public class ReadingDetailActivity extends AppCompatActivity
                 return model.parseZhiHuDaily(url);
             }
 
-            @Override protected void onPostExecute(ArrayMap<String, String> data)
+            @Override protected void onPostExecute(ZhiHuDaily data)
             {
-                Log.i(TAG, "onPostExecute: " + data.get("content"));
-                mWebview.loadDataWithBaseURL("http://daily.zhihu.com", "<html>" + data.get("content") + "</html>", "text/html", "utf-8", null);
+                Log.i(TAG, "onPostExecute: " + data.htmlSnap);
+                mWebview.loadDataWithBaseURL("http://daily.zhihu.com", "<html>" + data.htmlSnap + "</html>", "text/html", "utf-8", null);
             }
         }.execute();
 

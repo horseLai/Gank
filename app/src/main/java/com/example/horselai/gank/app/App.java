@@ -32,7 +32,6 @@ public class App extends Application
     private static final String TAG = "App >>> ";
     public static final boolean DEBUG = true;
 
-    //private static final String APP_KEY = "3a1c665fb6bc7d43f95e4f3c95d19e25";
 
     public static Context context()
     {
@@ -44,10 +43,7 @@ public class App extends Application
         super.onCreate();
         mContext = this;
 
-        initBmobSdk();
-
         initImageLoader();
-        // initContentLoader();
 
 
         //初始化主目录
@@ -88,16 +84,6 @@ public class App extends Application
         }
     }
 
-
-    private void initBmobSdk()
-    {
-        /*BmobConfig config =
-                new BmobConfig.Builder(this).setApplicationId(APP_KEY).setConnectTimeout(30) //30s
-                        .setFileExpiration(2500) //文件过期时间
-                        .setUploadBlockSize(1024 * 1024) //设置文件分片上传时每片的大小（字节）
-                        .build();
-        Bmob.initialize(config);*/
-    }
 
 
     /**
@@ -145,7 +131,7 @@ public class App extends Application
 
         long currentTimeM = System.currentTimeMillis();
 
-        if (!msg.equals(lastToastMsg) || Math.abs(currentTimeM - lastToastTime) > 1500) //3s时差
+        if (!msg.equals(lastToastMsg) || Math.abs(currentTimeM - lastToastTime) > 1500)
         {
             Toast.makeText(mContext, msg, duration).show();
         }

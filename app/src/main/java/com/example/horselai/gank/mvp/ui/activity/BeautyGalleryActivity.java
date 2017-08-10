@@ -224,7 +224,8 @@ public class BeautyGalleryActivity extends BaseAppbarListActivity<GankBeauty>
             @Override public boolean onMenuItemClick(MenuItem item)
             {
                 //App.toastShort("" + item.getTitle());
-                GankUI.startShare(BeautyGalleryActivity.this, getResources().getString(R.string.share_text));
+                final String msg = getResources().getString(R.string.share_text);
+                Utils.shareTextPlain(BeautyGalleryActivity.this, msg, msg);
                 return true;
             }
         });
