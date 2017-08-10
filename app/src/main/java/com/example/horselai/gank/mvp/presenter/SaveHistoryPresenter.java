@@ -37,7 +37,7 @@ public class SaveHistoryPresenter extends AbsSuperPresenter<GankNews>
 
     @Override public void update(Object... params)
     {
-        if (!checkIsOnline()) return;
+        // if (!checkIsOnline()) return;
 
         switch ((int) params[0]) {
 
