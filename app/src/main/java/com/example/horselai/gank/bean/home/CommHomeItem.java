@@ -1,6 +1,5 @@
 package com.example.horselai.gank.bean.home;
 
-import com.example.horselai.gank.base.BaseMultipleTypeListAdapter;
 import com.example.horselai.gank.base.BeanEntry;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class CommHomeItem<T extends BeanEntry> extends BeanEntry
         this.dataList = dataList;
     }
 
-    public CommHomeItem(BaseMultipleTypeListAdapter.ItemType itemType, String headerLabel, T data, ArrayList<T> dataList)
+    public CommHomeItem(int itemType, String headerLabel, T data, ArrayList<T> dataList)
     {
         this.itemType = itemType;
         this.headerLabel = headerLabel;

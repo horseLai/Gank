@@ -44,7 +44,7 @@ public class SaveAndHistoryFragment extends BaseFragment
         tabs.addTab(tab, 0);
 
         tab = tabs.newTab();
-        tab.setIcon(R.drawable.ic_star_white);
+        tab.setIcon(R.drawable.ic_star_gray);
         tab.setText("收藏");
         tabs.addTab(tab, 1);
 
@@ -53,6 +53,14 @@ public class SaveAndHistoryFragment extends BaseFragment
             @Override public void onPageSelected(int position)
             {
                 tabs.getTabAt(position).select();
+                final TabLayout.Tab tab = tabs.getTabAt(position);
+                if (position == 0) {
+                    tab.setIcon(R.drawable.ic_history_white);
+                    tabs.getTabAt(1).setIcon(R.drawable.ic_star_gray);
+                } else if (position == 1) {
+                    tab.setIcon(R.drawable.ic_star_white);
+                    tabs.getTabAt(0).setIcon(R.drawable.ic_history_gray);
+                }
             }
         });
         tabs.addOnTabSelectedListener(new TabSelectedListener()

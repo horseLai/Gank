@@ -17,12 +17,8 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
 {
 
     // private Map<String, SoftReference<Bitmap>> mSoftReferences;
-    private static final int DEFAULT_SIZE;
+    private static final int DEFAULT_SIZE = (int) (Runtime.getRuntime().maxMemory() / 8);
 
-    static {
-        final long max = Runtime.getRuntime().maxMemory() / 8;
-        DEFAULT_SIZE = (int) (max > 25 * 1024 ? 25 * 1024 : max);
-    }
 
     /**
      * @param maxSize for caches that do not override {@link #sizeOf}, this is

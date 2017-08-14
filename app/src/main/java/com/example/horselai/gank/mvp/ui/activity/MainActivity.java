@@ -1,5 +1,6 @@
 package com.example.horselai.gank.mvp.ui.activity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Process;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -151,4 +153,10 @@ public class MainActivity extends NavigationViwPagerActivity
     };
 
 
+    @Override public void onConfigurationChanged(Configuration newConfig)
+    {
+        super.onConfigurationChanged(newConfig);
+        Log.i(TAG, "onConfigurationChanged: ");
+
+    }
 }

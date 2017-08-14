@@ -86,7 +86,7 @@
         </ul>
     </string>
     <string name="me_app_version">
-        暂且版本为 V1.0，会不断更新喔！敬请期待。
+        当前版本为 V1.1，会不断更新喔！敬请期待。
     </string>
     <string name="web_menu">菜单</string>
     <string name="clean_history">清空历史数据</string>
@@ -105,6 +105,11 @@
     <string name="thanks">致谢开源</string>
     <string name="aboutDeveloper">关于开发者</string>
     <string name="version">软件版本</string>
+    <string name="tvVersion">软件版本</string>
+    <string name="tvDeveloper">开发者</string>
+    <string name="tvLicence">相关说明</string>
+    <string name="tvOfficial">访问官网</string>
+    <string name="tvClean">清理缓存</string>
 
 
 </resources>

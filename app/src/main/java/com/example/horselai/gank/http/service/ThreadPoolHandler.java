@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -39,14 +40,13 @@ public class ThreadPoolHandler
 
     public synchronized Object addToPool(Callable<?> task)
     {
-        if (!QUEUE.contains(task)) {
+        if (stillWork() && !QUEUE.contains(task)) {
             try {
                 return executor.submit(task).get();
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
         return null;
     }
 
@@ -70,6 +70,11 @@ public class ThreadPoolHandler
         if (contains(task)) QUEUE.remove(task);
     }
 
+    public synchronized void removeTaskFromQueue(FutureTask<?> task)
+    {
+        if (contains(task)) QUEUE.remove(task);
+    }
+
     public synchronized void clearTaskQueue()
     {
         if (!QUEUE.isEmpty()) QUEUE.clear();
@@ -85,6 +90,22 @@ public class ThreadPoolHandler
     {
         if (!stillWork()) return;
         if (QUEUE.contains(task)) {
+            QUEUE.remove(task);
+        }
+        executor.execute(task);
+    }
+
+    /**
+     * 添加一个任务到线程池，如果包含此任务，那么将删旧添新
+     *
+     * @param task
+     */
+    public synchronized void addToPool(FutureTask<?> task)
+    {
+        if (!stillWork()) return;
+
+        if (QUEUE.contains(task)) {
+            task.cancel(false);
             QUEUE.remove(task);
         }
         executor.execute(task);

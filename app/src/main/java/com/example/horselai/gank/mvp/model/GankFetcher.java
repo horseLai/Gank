@@ -91,7 +91,7 @@ public final class GankFetcher
      */
     public ArrayList<GankNews> fetchNormalGank(String apiUrl, String apiBeautyUrl)
     {
-        return fetchNormalGank(apiUrl, apiBeautyUrl, null);
+        return fetchNormalGank(apiUrl, apiBeautyUrl, -1);
     }
 
 
@@ -101,7 +101,7 @@ public final class GankFetcher
      * @param itemType
      * @return
      */
-    public ArrayList<GankNews> fetchNormalGank(String apiUrl, String apiBeautyUrl, BaseMultipleTypeListAdapter.ItemType itemType)
+    public ArrayList<GankNews> fetchNormalGank(String apiUrl, String apiBeautyUrl, int itemType)
     {
         try {
             final JsonArray results = getJsonArrComm(apiUrl);
@@ -127,7 +127,7 @@ public final class GankFetcher
                 obj = (JsonObject) e;
                 news = new GankNews();
 
-                if (itemType != null) news.itemType = itemType;
+                if (itemType > 0) news.itemType = itemType;
                 else news.itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_STAGGERED;
 
                 tmp = obj.get("source");
@@ -282,7 +282,7 @@ public final class GankFetcher
         JsonObject obj;
         JsonElement tmp;
         GankNews news;
-        BaseMultipleTypeListAdapter.ItemType itemType = decideItemType(type, newsArr.size());
+        final int itemType = decideItemType(type, newsArr.size());
 
         items.add(new CommHomeItem<GankNews>(BaseMultipleTypeListAdapter.ItemType.TYPE_HEADER, type, null, null));
 
@@ -322,9 +322,9 @@ public final class GankFetcher
 
     }
 
-    private BaseMultipleTypeListAdapter.ItemType decideItemType(String type, int size)
+    private int decideItemType(String type, int size)
     {
-        BaseMultipleTypeListAdapter.ItemType itemType;
+        int itemType;
         if (GankApi.VIDEO.equals(type)) {
             itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_OTHER;
         } else if (GankApi.ANDROID.equals(type)) {
@@ -361,21 +361,21 @@ public final class GankFetcher
 
     public ArrayList<GankBeauty> fetchGankBeautyRandom(int itemNum)
     {
-        return fetchGankBeauty(GankApi.apiRandom("福利", itemNum), null);
+        return fetchGankBeauty(GankApi.apiRandom("福利", itemNum), -1);
     }
 
-    public ArrayList<GankBeauty> fetchGankBeautyRandom(int itemNum, BaseMultipleTypeListAdapter.ItemType itemType)
+    public ArrayList<GankBeauty> fetchGankBeautyRandom(int itemNum, int itemType)
     {
         return fetchGankBeauty(GankApi.apiRandom("福利", itemNum), itemType);
     }
 
     public ArrayList<GankBeauty> fetchGankBeauty(int itemNum, int pageNum)
     {
-        return fetchGankBeauty(GankApi.apiBeauty(itemNum, pageNum), null);
+        return fetchGankBeauty(GankApi.apiBeauty(itemNum, pageNum), -1);
     }
 
 
-    public ArrayList<GankBeauty> fetchGankBeauty(String apiBeauty, BaseMultipleTypeListAdapter.ItemType itemType)
+    public ArrayList<GankBeauty> fetchGankBeauty(String apiBeauty, int itemType)
     {
         try {
             final JsonArray beautyArr = getJsonArrComm(apiBeauty);
@@ -388,7 +388,7 @@ public final class GankFetcher
             for (JsonElement e : beautyArr) {
                 obj = (JsonObject) e;
                 beauty = new GankBeauty();
-                if (itemType != null) beauty.itemType = itemType;
+                if (itemType > 0) beauty.itemType = itemType;
 
                 beauty.publishedAt = obj.get("publishedAt").getAsString();
                 beauty.url = obj.get("url").getAsString();
@@ -473,7 +473,7 @@ public final class GankFetcher
         return data;
     }
 
-    private void transform(String label, ArrayList<CommHomeItem> data, ArrayList<GankNews> newses, BaseMultipleTypeListAdapter.ItemType itemType)
+    private void transform(String label, ArrayList<CommHomeItem> data, ArrayList<GankNews> newses, int itemType)
     {
         CommHomeItem item;
         for (GankNews news : newses) {
@@ -508,7 +508,7 @@ public final class GankFetcher
     }
 
 
-    private BaseMultipleTypeListAdapter.ItemType checkItemType(String type)
+    private int checkItemType(String type)
     {
         switch (type) {
             case "福利":
@@ -539,7 +539,7 @@ public final class GankFetcher
     public static final String SEARCH_DATA = "data";
 
 
-    public ArrayMap<String, Object> search(String url, BaseMultipleTypeListAdapter.ItemType itemType)
+    public ArrayMap<String, Object> search(String url, int itemType)
     {
         try {
             final String content = HttpRequest.newNormalRequest(url, false).doRequest("UTF-8");

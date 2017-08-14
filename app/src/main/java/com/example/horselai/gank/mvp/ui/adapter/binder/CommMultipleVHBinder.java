@@ -6,7 +6,11 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.BaseViewHolderBinder;
 import com.example.horselai.gank.base.BeanEntry;
@@ -123,10 +127,16 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         vh.btnMenuMore.setTag(data);
         vh.tvDesc.setTag(data);
 
+        if (!TextUtils.isEmpty(data.image))
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
 
-        ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
 
+    }
 
+    private void loadImage(ImageView ivImage, GankNews data)
+    {
+        String url = data.image + "?imageView2/0/w/320";
+        Glide.with(mContext).setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565).centerCrop().placeholder(R.drawable.ic_emoji_frame_loading).error(R.drawable.ic_note_img_loadfail)).load(url).into(ivImage);
     }
 
 
@@ -164,6 +174,7 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         vh.tvLoadContent.setTag(data);
         if (!TextUtils.isEmpty(data.image))
             ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+
 
     }
 

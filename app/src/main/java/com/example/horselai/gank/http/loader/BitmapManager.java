@@ -15,6 +15,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 /**
  * Created by horseLai on 2017/7/14.
@@ -155,7 +156,8 @@ public final class BitmapManager
             bos = new ByteArrayOutputStream();
             int quality = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
-            if (DEBUG) Log.i(TAG, "compressBitmap: before size >>: " + bos.size() / 1024 + "kb");
+            if (DEBUG)
+                Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: before size >>: %dkb", bos.size() / 1024));
 
             while (bos.size() / 1024 > maxSizeInKb && quality > 6) {
                 bos.reset();
@@ -164,8 +166,8 @@ public final class BitmapManager
             }
             final byte[] bytes = bos.toByteArray();
             if (DEBUG) {
-                Log.i(TAG, "compressBitmap: final quality >>: " + quality);
-                Log.i(TAG, "compressBitmap: final size >>: " + bytes.length / 1024 + "kb");
+                Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: final quality >>: %d%", quality));
+                Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: final size >>: %dkb", bytes.length / 1024));
             }
 
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);

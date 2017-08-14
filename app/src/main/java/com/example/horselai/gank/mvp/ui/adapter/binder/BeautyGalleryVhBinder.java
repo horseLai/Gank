@@ -41,7 +41,6 @@ public class BeautyGalleryVhBinder extends BaseViewHolderBinder<GankBeauty>
         VH vh = (VH) holder;
         if (!TextUtils.isEmpty(itemData.url))
             ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.url + "?imageView2/0/w/320", true, mLoadImageNow, 320, 400);
-
     }
 
     @Override public void release()

@@ -64,10 +64,12 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     public void updateListScrollState(RecyclerView.LayoutManager manager, int recyclerViewState)
     {
         if (App.DEBUG) Log.i(TAG, "updateListScrollState: >>>> ");
+
+        mLoadImageNow = (recyclerViewState == RecyclerView.SCROLL_STATE_IDLE);
         //检测状态，并且解决了手指稍微一动就发生状态改变的问题
         if (manager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager sManager = (StaggeredGridLayoutManager) manager;
-            mLoadImageNow = recyclerViewState == RecyclerView.SCROLL_STATE_IDLE;
+
             final int[] into = sManager.findFirstVisibleItemPositions(new int[2]);
 
             mLoadImageNow &= (into[0] != mLastFirstItem);
@@ -75,7 +77,6 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 
         } else if ((manager instanceof LinearLayoutManager)) {
             LinearLayoutManager llManager = (LinearLayoutManager) manager;
-            mLoadImageNow = recyclerViewState == RecyclerView.SCROLL_STATE_IDLE;
             final int first = llManager.findFirstVisibleItemPosition();
 
             mLoadImageNow &= (first != mLastFirstItem);
@@ -114,30 +115,20 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         mDataList = new LinkedList<>();
     }
 
-
-    public enum ItemType
+    public interface ItemType
     {
-        TYPE_SLIDE_ROTATION(1),
-        TYPE_HEADER(2),
-        TYPE_LINEAR(3),
-        TYPE_GRID(4),
-        TYPE_STAGGERED(5),
-        TYPE_LIST(6),
-        TYPE_OTHER(7),
-        TYPE_CATEGORY_BAR(8);
 
-        private int itemType = 0;
+        int TYPE_SLIDE_ROTATION = 1;
+        int TYPE_HEADER = 2;
+        int TYPE_LINEAR = 3;
+        int TYPE_GRID = 4;
+        int TYPE_STAGGERED = 5;
+        int TYPE_LIST = 6;
+        int TYPE_OTHER = 7;
+        int TYPE_CATEGORY_BAR = 8;
 
-        ItemType(int type)
-        {
-            this.itemType = type;
-        }
-
-        public int value()
-        {
-            return itemType;
-        }
     }
+
 
 
     public void addItemsToHeadPos(ArrayList<T> items)
@@ -232,23 +223,23 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
             return mViewHolderBinder.onCreateOrdinaryVieHolder(parent, viewType);
         } else {
             //使用StaggeredGridLayoutManager时
-            if (viewType == ItemType.TYPE_SLIDE_ROTATION.itemType) {
+            if (viewType == ItemType.TYPE_SLIDE_ROTATION) {
                 return mViewHolderBinder.onCreateSliderRotationViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_CATEGORY_BAR.itemType) {
+            } else if (viewType == ItemType.TYPE_CATEGORY_BAR) {
                 return mViewHolderBinder.onCreateCategoryBarViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_HEADER.itemType) {
+            } else if (viewType == ItemType.TYPE_HEADER) {
                 return mViewHolderBinder.onCreateHeaderViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_LINEAR.itemType) {
+            } else if (viewType == ItemType.TYPE_LINEAR) {
                 return mViewHolderBinder.onCreateLinearViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_GRID.itemType) {
+            } else if (viewType == ItemType.TYPE_GRID) {
                 return mViewHolderBinder.onCreateGridViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_STAGGERED.itemType) {
+            } else if (viewType == ItemType.TYPE_STAGGERED) {
                 return mViewHolderBinder.onCreateStaggeredViewHolder(parent, viewType);
-            } else if (viewType == ItemType.TYPE_LIST.itemType) {
+            } else if (viewType == ItemType.TYPE_LIST) {
                 View view = mLayoutInflater.inflate(R.layout.base_home_vh_type_list, parent, false);
                 RecyclerView rvList = (RecyclerView) view.findViewById(R.id.rv_base_home_list);
                 return mViewHolderBinder.onCreateListItemViewHolder(rvList, parent, viewType);
-            } else if (viewType == ItemType.TYPE_OTHER.itemType) {
+            } else if (viewType == ItemType.TYPE_OTHER) {
                 return mViewHolderBinder.onCreateOtherViewHolder(parent, viewType);
             } else {
                 throw new RuntimeException("同志，你的ItemType没有匹配到哦，请确定你在数据中设置了ItemType参数 ,,ԾㅂԾ,,！");
@@ -258,7 +249,6 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 
 
     long delay = 0;
-
     @Override public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
     {
         final long start = System.currentTimeMillis();
@@ -277,23 +267,24 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         if (!mLoadImageNow) {
             //滑动过程中把其他现有队列任务都清理掉
             ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
+            return;
         }
 
-        if (itemViewType == ItemType.TYPE_SLIDE_ROTATION.itemType) {
+        if (itemViewType == ItemType.TYPE_SLIDE_ROTATION) {
             mViewHolderBinder.onBindSliderRotationViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_CATEGORY_BAR.itemType) {
+        } else if (itemViewType == ItemType.TYPE_CATEGORY_BAR) {
             mViewHolderBinder.onBindCategoryBarViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_HEADER.itemType) {
+        } else if (itemViewType == ItemType.TYPE_HEADER) {
             mViewHolderBinder.onBindHeaderViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_LINEAR.itemType) {
+        } else if (itemViewType == ItemType.TYPE_LINEAR) {
             mViewHolderBinder.onBindLinearViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_GRID.itemType) {
+        } else if (itemViewType == ItemType.TYPE_GRID) {
             mViewHolderBinder.onBindGridViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_STAGGERED.itemType) {
+        } else if (itemViewType == ItemType.TYPE_STAGGERED) {
             mViewHolderBinder.onBindStaggeredViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_LIST.itemType) {
+        } else if (itemViewType == ItemType.TYPE_LIST) {
             mViewHolderBinder.onBindListViewHolder(holder, mLoadImageNow, iterator.next(), position);
-        } else if (itemViewType == ItemType.TYPE_OTHER.itemType) {
+        } else if (itemViewType == ItemType.TYPE_OTHER) {
             mViewHolderBinder.onBindOtherViewHolder(holder, mLoadImageNow, iterator.next(), position);
         } else if (TYPE_ORDINARY == itemViewType) {
             mViewHolderBinder.onBindOrdinaryViewHolder(holder, mLoadImageNow, iterator.next(), position);
@@ -335,7 +326,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         if (mLayoutManager instanceof LinearLayoutManager) {
             return hasFooterView() && position == size ? TYPE_FOOTER : TYPE_ORDINARY;
         }
-        return hasFooterView() && position == size ? TYPE_FOOTER : mDataList.listIterator(position).next().itemType.itemType;
+        return hasFooterView() && position == size ? TYPE_FOOTER : mDataList.listIterator(position).next().itemType;
     }
 
 

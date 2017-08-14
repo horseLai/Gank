@@ -1,19 +1,15 @@
 package com.example.horselai.gank.mvp.ui.activity;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.webkit.WebChromeClient;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.horselai.gank.R;
@@ -36,10 +32,10 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
     private ImagePresenter mPresenter;
     public static final String KEY_DATA = "data";
     private ImageView mIvBarImage;
-    private NestedScrollView mScrollParent;
-    private FrameLayout mWebViewContainer;
-    private View mFullView;
-    private WebChromeClient.CustomViewCallback mFullCallback;
+    // private NestedScrollView mScrollParent;
+    // private FrameLayout mWebViewContainer;
+    // private View mFullView;
+    //  private WebChromeClient.CustomViewCallback mFullCallback;
     private CollapsingToolbarLayout mCollapseBar;
 
 
@@ -82,7 +78,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
 
     private void initWidget()
     {
-        mScrollParent = getScrollParent();
+        //mScrollParent = getScrollParent();
         //***************************************************************
         FloatingActionButton fabFullUp = (FloatingActionButton) findViewById(R.id.fab_full_up);
         FloatingActionButton fabDownload = (FloatingActionButton) findViewById(R.id.fab_download);
@@ -92,7 +88,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
 
 
         //***************************************************************
-        mWebViewContainer = (FrameLayout) findViewById(R.id.web_view_container);
+        // mWebViewContainer = (FrameLayout) findViewById(R.id.web_view_container);
         mCollapseBar = (CollapsingToolbarLayout) findViewById(R.id.bar_collapse);
 
         mCollapseBar.setTitleEnabled(false);
@@ -122,7 +118,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
 
     @Override protected void doHideCustomView()
     {
-        getWebView().setVisibility(View.VISIBLE);
+        /*getWebView().setVisibility(View.VISIBLE);
         if (mFullView == null) return;
 
         mFullView.setVisibility(View.GONE);
@@ -130,7 +126,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
         mFullCallback.onCustomViewHidden();
         mFullView = null;
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+*/
 
     }
 
@@ -138,7 +134,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
     protected void doShowCustomView(View viewToShow, WebChromeClient.CustomViewCallback callback)
     {
         App.toastShort("doShowCustomView");
-        if (mFullView != null) {
+       /* if (mFullView != null) {
             callback.onCustomViewHidden();
             return;
         }
@@ -150,7 +146,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
             final int[] wh = getScreenWh();
             mWebViewContainer.addView(viewToShow, wh[1], wh[0]);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        }
+        }*/
     }
 
 
@@ -173,7 +169,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
                 break;
             }
             case R.id.fab_full_up: {
-                mScrollParent.fullScroll(View.FOCUS_UP);
+                getWebView().pageUp(true);
                 //保持标题滚动
                 getBarTitleView().requestFocus();
                 break;
@@ -196,7 +192,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
     @Override public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
-        switch (newConfig.orientation) {
+       /* switch (newConfig.orientation) {
             case Configuration.ORIENTATION_LANDSCAPE: {
                 getToolbar().setVisibility(View.GONE);
                 mIvBarImage.setVisibility(View.GONE);
@@ -215,7 +211,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
                 getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
                 break;
             }
-        }
+        }*/
 
     }
 

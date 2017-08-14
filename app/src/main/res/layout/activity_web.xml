@@ -7,27 +7,35 @@
     <include layout="@layout/app_bar_collapse_with_header_no_tabs"/>
 
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nest_scroll_parent"
+    <!-- <android.support.v4.widget.NestedScrollView
+         android:id="@+id/nest_scroll_parent"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:fadeScrollbars="true"
+         android:scrollbarFadeDuration="1500"
+         android:scrollbars="vertical"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+         <FrameLayout
+             android:id="@+id/web_view_container"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+             <WebView
+                 android:id="@+id/web_view"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 />
+
+         </FrameLayout>
+     </android.support.v4.widget.NestedScrollView>-->
+
+    <com.example.horselai.gank.impl.MyWebView
+        android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fadeScrollbars="true"
-        android:scrollbarFadeDuration="1500"
-        android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 
-        <FrameLayout
-            android:id="@+id/web_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <WebView
-                android:id="@+id/web_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-
-        </FrameLayout>
-    </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_full_up"

@@ -66,7 +66,7 @@
                     android:paddingEnd="10dp"
                     android:paddingStart="10dp"
                     android:paddingTop="15dp"
-                    android:text="清理缓存"
+                    android:text="@string/tvClean"
                     android:textColor="@color/lightBlack"
                     />
 
@@ -94,7 +94,7 @@
                 style="@style/AboutItemStyle"
                 android:layout_below="@id/layout_clean"
                 android:drawableStart="@drawable/ic_internet_teal"
-                android:text="访问官网"
+                android:text="@string/tvOfficial"
                 />
 
 
@@ -103,7 +103,7 @@
                 style="@style/AboutItemStyle"
                 android:layout_below="@id/tv_official_web"
                 android:drawableStart="@drawable/ic_licence_teal"
-                android:text="相关说明"
+                android:text="@string/tvLicence"
                 />
 
             <TextView
@@ -111,7 +111,7 @@
                 style="@style/AboutItemStyle"
                 android:layout_below="@id/tv_licence"
                 android:drawableStart="@drawable/ic_developer_teal"
-                android:text="开发者"
+                android:text="@string/tvDeveloper"
                 />
 
 
@@ -120,7 +120,7 @@
                 style="@style/AboutItemStyle"
                 android:layout_below="@id/tv_developer"
                 android:drawableStart="@drawable/ic_version_teal"
-                android:text="软件版本  V1.0"
+                android:text="@string/tvVersion"
                 />
 
 

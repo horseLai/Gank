@@ -17,6 +17,7 @@ import com.example.horselai.gank.http.cache.ICache;
 import com.example.horselai.gank.http.cache.ImageDiskLruCache;
 import com.example.horselai.gank.http.cache.ImageDoubleCache;
 import com.example.horselai.gank.http.cache.ImageMemoryCache;
+import com.example.horselai.gank.http.cache.ImageResultCachePool;
 import com.example.horselai.gank.http.request.HttpRequest;
 import com.example.horselai.gank.http.service.ThreadPoolHandler;
 import com.example.horselai.gank.util.FileManager;
@@ -26,7 +27,6 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
 
 /**
  * Created by laixiaolong on 2017/3/12.
@@ -39,45 +39,45 @@ public class ImageLoader extends AbsImageLoader implements Closeable
     public static final boolean DEBUG = App.DEBUG;
     private static final Object LOCK_OBJECT = new Object();
 
+    private ImageResultCachePool mObjectCachePool;
     private ICache<String, Bitmap> mCache;
-
 
     private static int imageLoading;
     private static int imageLoadFailed;
     private boolean mIsCacheInitialized = false;
 
 
-    private static final Handler mMainHandler = new Handler()
+    private final Handler mMainHandler = new Handler()
     {
         @Override public void handleMessage(Message msg)
         {
-            WeakReference<Result> resultRef = new WeakReference<Result>((Result) msg.obj);
+            final Result result = (Result) msg.obj;
             switch (msg.what) {
 
                 case MSG_LOADING:
-                    if (imageLoading != 0) resultRef.get().imageView.setImageResource(imageLoading);
+                    if (imageLoading != 0) result.imageView.setImageResource(imageLoading);
                     break;
 
                 case MSG_LOAD_OK:
-                    if (resultRef.get().bitmap == null) return;
-                    if (resultRef.get().imageView.getTag().equals(resultRef.get().mainUrl)) {
-                        resultRef.get().imageView.setImageBitmap(resultRef.get().bitmap);
+                    if (result.bitmap == null) return;
+                    if (result.imageView.getTag().equals(result.url)) {
+                        result.imageView.setImageBitmap(result.bitmap);
                     }
                     break;
 
                 case MSG_LOAD_FAILED:
                     if (imageLoadFailed != 0) {
-                        resultRef.get().imageView.setImageResource(imageLoadFailed);
+                        result.imageView.setImageResource(imageLoadFailed);
                     }
                     break;
 
                 case MSG_SET_IMG_GONE:
-                    if (resultRef.get().imageView.getTag() != null && resultRef.get().imageView.getTag().equals(resultRef.get().mainUrl))
-                        resultRef.get().imageView.setVisibility(View.GONE);
+                    if (result.imageView.getTag() != null && result.imageView.getTag().equals(result.url))
+                        result.imageView.setVisibility(View.GONE);
                     break;
             }
-            resultRef.clear();
-            resultRef = null;
+            //使用完成，收录到缓存
+            mObjectCachePool.recycleResult(result);
         }
 
     };
@@ -88,22 +88,16 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         return THREAD_POOL_HANDLER;
     }
 
-    private static ImageLoader loader;
-
     public static ImageLoader getImageLoader()
     {
-        if (loader == null) {
-            synchronized (LOCK_OBJECT) {
-                if (loader == null) loader = new ImageLoader();
-            }
-        }
-        return loader;
+        return InstanceBuilder.loader;
     }
 
     @Override public void close() throws IOException
     {
         THREAD_POOL_HANDLER.clearTaskQueue();
         THREAD_POOL_HANDLER.closePoolNow();
+        mObjectCachePool.clearResultCache();
         mCache.close();
     }
 
@@ -117,11 +111,10 @@ public class ImageLoader extends AbsImageLoader implements Closeable
     }
 
 
-    /*  private static class InstanceBuilder
-      {
-          private static ImageLoader loader = new ImageLoader();
-      }
-    */
+    private static class InstanceBuilder
+    {
+        private static ImageLoader loader = new ImageLoader();
+    }
 
     private ImageLoader()
     {
@@ -144,7 +137,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         THREAD_POOL_HANDLER.setMaxPoolSize(maxThreadPoolSize);
 
         initCache(cacheMethod, diskCacheSize, context, compressFormat, compressQuality);
-
+        //创建缓冲池
+        mObjectCachePool = new ImageResultCachePool(20);
     }
 
 
@@ -293,7 +287,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
                 final Bitmap bitmap = loadImage(url, targetW, targetH);
 
                 if (bitmap != null) {
-                    final Result result = new Result(iv, bitmap, url);
+                    final Result result = mObjectCachePool.getResult(iv, bitmap, url);
                     mMainHandler.obtainMessage(MSG_LOAD_OK, result).sendToTarget();
                     return;
                 }
@@ -304,7 +298,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
                 } else {
                     msg = MSG_LOAD_FAILED;
                 }
-                final Result result = new Result(iv, null, url);
+                final Result result = mObjectCachePool.getResult(iv, null, url);
                 mMainHandler.obtainMessage(msg, result).sendToTarget();
 
             }
@@ -446,17 +440,21 @@ public class ImageLoader extends AbsImageLoader implements Closeable
     }
 
 
-    final class Result
+    public static final class Result
     {
-        ImageView imageView;
-        Bitmap bitmap;
-        String mainUrl;
+        public ImageView imageView;
+        public Bitmap bitmap;
+        public String url;
+
+        public Result()
+        {
+        }
 
         public Result(ImageView imageView, Bitmap bitmap, String mainUrl)
         {
             this.imageView = imageView;
             this.bitmap = bitmap;
-            this.mainUrl = mainUrl;
+            this.url = mainUrl;
         }
     }
 }

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.PopupMenu;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.app.App;
+import com.example.horselai.gank.impl.MyWebView;
 import com.example.horselai.gank.util.Utils;
 
 /**
@@ -29,12 +29,12 @@ import com.example.horselai.gank.util.Utils;
 public abstract class BaseWebViewActivity extends AppbarActivity implements View.OnClickListener
 {
 
-    private WebView mWebView;
+    private MyWebView mWebView;
     private Snackbar mSnackbar;
     private TextView mBarTitle;
     private String mCurUrl;
     //private int mLastPosition = 0;
-    private NestedScrollView mScrollParent;
+    // private NestedScrollView mScrollParent;
 
     @Override protected abstract boolean homeAsUpEnable();
 
@@ -59,10 +59,10 @@ public abstract class BaseWebViewActivity extends AppbarActivity implements View
     @Override public abstract int provideContentViewId();
 
 
-    public NestedScrollView getScrollParent()
+   /* public NestedScrollView getScrollParent()
     {
         return mScrollParent;
-    }
+    }*/
 
     @Override public void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -76,7 +76,7 @@ public abstract class BaseWebViewActivity extends AppbarActivity implements View
 
     protected abstract String parseIntentResForUrl();
 
-    public WebView getWebView()
+    public MyWebView getWebView()
     {
         return mWebView;
     }
@@ -92,14 +92,14 @@ public abstract class BaseWebViewActivity extends AppbarActivity implements View
         mBarTitle = getBarTitleView();
         mBarTitle.setTextColor(Color.WHITE);
 
-        mScrollParent = (NestedScrollView) findViewById(R.id.nest_scroll_parent);
+        //mScrollParent = (NestedScrollView) findViewById(R.id.nest_scroll_parent);
 
     }
 
 
     private void setupWebView()
     {
-        mWebView = (WebView) findViewById(R.id.web_view);
+        mWebView = (MyWebView) findViewById(R.id.web_view);
         final WebSettings settings = mWebView.getSettings();
         settings.setAppCacheEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
