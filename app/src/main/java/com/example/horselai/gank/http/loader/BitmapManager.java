@@ -166,7 +166,7 @@ public final class BitmapManager
             }
             final byte[] bytes = bos.toByteArray();
             if (DEBUG) {
-                Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: final quality >>: %d%", quality));
+                Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: final quality >>: %d", quality));
                 Log.i(TAG, String.format(Locale.getDefault(), "compressBitmap: final size >>: %dkb", bytes.length / 1024));
             }
 

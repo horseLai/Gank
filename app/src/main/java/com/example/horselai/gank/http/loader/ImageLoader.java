@@ -138,7 +138,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
 
         initCache(cacheMethod, diskCacheSize, context, compressFormat, compressQuality);
         //创建缓冲池
-        mObjectCachePool = new ImageResultCachePool(20);
+        mObjectCachePool = new ImageResultCachePool(25);
     }
 
 
