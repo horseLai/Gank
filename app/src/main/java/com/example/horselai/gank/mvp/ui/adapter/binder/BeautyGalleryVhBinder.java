@@ -39,8 +39,8 @@ public class BeautyGalleryVhBinder extends BaseViewHolderBinder<GankBeauty>
         super.onBindGridViewHolder(holder, mLoadImageNow, itemData, position);
 
         VH vh = (VH) holder;
-        if (!TextUtils.isEmpty(itemData.url))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.url + "?imageView2/0/w/320", true, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(itemData.url) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.url + "?imageView2/0/w/320", true, 320, 400);
     }
 
     @Override public void release()

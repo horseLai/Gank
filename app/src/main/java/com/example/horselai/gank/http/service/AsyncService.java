@@ -26,7 +26,7 @@ public class AsyncService implements Closeable
 
     @Override public void close() throws IOException
     {
-        THREAD_POOL_HANDLER.clearTaskQueue();
+        THREAD_POOL_HANDLER.cancelAndClearTaskQueue();
         THREAD_POOL_HANDLER.closePoolNow();
     }
 

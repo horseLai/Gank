@@ -3,8 +3,13 @@ package com.example.horselai.gank.http.service;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.horselai.gank.app.App;
+
+import java.util.ArrayDeque;
+import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
@@ -19,22 +24,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class ThreadPoolHandler
 {
     private static final String TAG = "ThreadPoolHandler >>> ";
-    private ThreadPoolExecutor executor = null;
+    private ThreadPoolExecutor mExecutor = null;
     private static final LinkedBlockingQueue QUEUE = new LinkedBlockingQueue(128);
     private static final int CORE_POOL_SIZE = Math.max(2, Math.min(Runtime.getRuntime().availableProcessors() - 1, 4));
     private static final int MAX_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2 + 1;
     private static final int KEEP_ALIVE_SECONDS = 15; //存活时间（超时时间）
+    private ArrayDeque<Future> mFutureTasks;
 
     public ThreadPoolHandler()
     {
-        executor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS, QUEUE, new Factory());
-        executor.allowCoreThreadTimeOut(true);
+        mExecutor = new ThreadPoolExecutor(CORE_POOL_SIZE, MAX_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS, QUEUE, new Factory());
+        mExecutor.allowCoreThreadTimeOut(true);
+        mFutureTasks = new ArrayDeque<>();
     }
 
     public synchronized void setMaxPoolSize(int maxPoolSize)
     {
         if (maxPoolSize > 0 && maxPoolSize < Integer.MAX_VALUE)
-            executor.setMaximumPoolSize(maxPoolSize);
+            mExecutor.setMaximumPoolSize(maxPoolSize);
     }
 
 
@@ -42,7 +49,7 @@ public class ThreadPoolHandler
     {
         if (stillWork() && !QUEUE.contains(task)) {
             try {
-                return executor.submit(task).get();
+                return mExecutor.submit(task).get();
             } catch (ExecutionException | InterruptedException e) {
                 e.printStackTrace();
             }
@@ -52,7 +59,7 @@ public class ThreadPoolHandler
 
     public synchronized void removeTaskFromQueue(Runnable task)
     {
-        if (contains(task)) QUEUE.remove(task);
+        if (stillWork() && contains(task)) QUEUE.remove(task);
     }
 
     public boolean contains(Runnable task)
@@ -67,32 +74,58 @@ public class ThreadPoolHandler
 
     public synchronized void removeTaskFromQueue(Callable<?> task)
     {
-        if (contains(task)) QUEUE.remove(task);
+        if (stillWork() && contains(task)) QUEUE.remove(task);
     }
 
     public synchronized void removeTaskFromQueue(FutureTask<?> task)
     {
-        if (contains(task)) QUEUE.remove(task);
+        if (stillWork()) {
+            task.cancel(true);
+            mExecutor.purge();
+        }
+        if (mFutureTasks.contains(task)) mFutureTasks.remove(task);
     }
+/*
 
     public synchronized void clearTaskQueue()
     {
-        if (!QUEUE.isEmpty()) QUEUE.clear();
-    }
-
-
-    /**
-     * 添加一个任务到线程池，如果包含此任务，那么将删旧添新
-     *
-     * @param task
-     */
-    public synchronized void addToPool(Runnable task)
-    {
-        if (!stillWork()) return;
-        if (QUEUE.contains(task)) {
-            QUEUE.remove(task);
+        if (stillWork() && !QUEUE.isEmpty()) {
+            QUEUE.clear();
         }
-        executor.execute(task);
+    }
+*/
+
+    public synchronized void cancelAndClearTaskQueue()
+    {
+        if (!stillWork()) {
+            mFutureTasks.clear();
+            return;
+        }
+
+        if (App.DEBUG)
+            Log.i(TAG, String.format(Locale.getDefault(), "cancelAndClearTaskQueue: mFutureTasks size = %d", mFutureTasks.size()));
+        Future f;
+        for (int i = 0; i < mFutureTasks.size(); i++) {
+            f = mFutureTasks.poll();
+            if (f != null && !f.isCancelled() && !f.isDone()) {
+                f.cancel(true);
+            }
+        }
+        mExecutor.purge();
+    }
+
+
+    /**
+     * 添加一个任务到线程池，如果包含此任务，那么将删旧添新
+     *
+     * @param task
+     */
+    public synchronized Future<?> addToPool(Runnable task)
+    {
+        if (!stillWork()) return null;
+        final Future<?> future = mExecutor.submit(task);
+        mFutureTasks.push(future);
+        return future;
     }
 
     /**
@@ -100,30 +133,32 @@ public class ThreadPoolHandler
      *
      * @param task
      */
-    public synchronized void addToPool(FutureTask<?> task)
+    public synchronized Future<?> addToPool(FutureTask<?> task)
     {
-        if (!stillWork()) return;
+        if (!stillWork()) return null;
 
         if (QUEUE.contains(task)) {
             task.cancel(false);
             QUEUE.remove(task);
         }
-        executor.execute(task);
+        final Future<?> future = mExecutor.submit(task);
+        mFutureTasks.add(future);
+        return future;
     }
 
     public synchronized void closePool()
     {
-        if (stillWork()) executor.shutdown();
+        if (stillWork()) mExecutor.shutdown();
     }
 
     public synchronized void closePoolNow()
     {
-        if (stillWork()) executor.shutdownNow();
+        if (stillWork()) mExecutor.shutdownNow();
     }
 
     public int getActiveTaskSize()
     {
-        if (stillWork()) return executor.getActiveCount();
+        if (stillWork()) return mExecutor.getActiveCount();
         return 0;
     }
 
@@ -134,21 +169,21 @@ public class ThreadPoolHandler
      *
      * @param timeout the maximum time to wait
      * @param unit    the time unit of the timeout argument
-     * @return {@code true} if this executor terminated and
+     * @return {@code true} if this mExecutor terminated and
      * {@code false} if the timeout elapsed before termination
      * @throws InterruptedException if interrupted while waiting
      */
     public synchronized void closeUntilAllCompleted(long timeout, TimeUnit unit) throws InterruptedException
     {
-        if (stillWork()) executor.awaitTermination(timeout, unit);
+        if (stillWork()) mExecutor.awaitTermination(timeout, unit);
     }
 
     /**
-     * @return true if executor is still Work, false otherwise
+     * @return true if mExecutor is still Work, false otherwise
      */
     private boolean stillWork()
     {
-        return executor != null && (!executor.isShutdown() || !executor.isTerminated() || !executor.isTerminating());
+        return mExecutor != null && (!mExecutor.isShutdown() || !mExecutor.isTerminated() || !mExecutor.isTerminating());
     }
 
 
@@ -180,5 +215,6 @@ public class ThreadPoolHandler
             thread.setUncaughtExceptionHandler(new PoolExceptionCatcher());
             return thread;
         }
+
     }
 }

@@ -123,8 +123,8 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         vh.btnMenuMore.setTag(data);
         vh.tvDesc.setTag(data);
 
-        if (!TextUtils.isEmpty(data.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(data.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, 320, 400);
 
     }
 
@@ -161,8 +161,8 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         //作为点击事件数据源
         vh.tvSeeBeauty.setTag(new GankBeauty(null, data.image, null));
         vh.tvLoadContent.setTag(data);
-        if (!TextUtils.isEmpty(data.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(data.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, 320, 400);
 
 
     }
@@ -192,8 +192,8 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         vh.tvDesc.setTag(data);
         vh.btnMenuMore.setTag(data);
 
-        if (!TextUtils.isEmpty(data.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(data.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, 320, 400);
     }
 
     @Override
@@ -212,8 +212,8 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
         vh.btnMenuMore.setTag(data);
         vh.ivPlay.setTag(data);
 
-        if (!TextUtils.isEmpty(data.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(data.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, data.image + "?imageView2/0/w/320", false, 320, 400);
 
     }
 

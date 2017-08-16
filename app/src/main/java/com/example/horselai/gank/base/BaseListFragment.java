@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.horselai.gank.R;
-import com.example.horselai.gank.http.loader.ImageLoader;
 import com.example.horselai.gank.mvp.presenter.iPresenter.AbsSuperPresenter;
 import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.RefresherHelper;
@@ -102,11 +101,6 @@ public abstract class BaseListFragment<T extends BeanEntry> extends BaseFragment
     }
 
 
-    @Override public void onPause()
-    {
-        super.onPause();
-        ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
-    }
 
     /**
      * @param view

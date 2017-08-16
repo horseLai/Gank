@@ -50,8 +50,8 @@ public class CatTypeLinearVhBinder extends BaseViewHolderBinder<GankNews>
         //作为点击事件数据源
         vh.tvLoadContent.setTag(itemData);
         vh.tvSeeBeauty.setTag(new GankBeauty(null, itemData.image, null));
-        if (!TextUtils.isEmpty(itemData.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(itemData.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.image + "?imageView2/0/w/320", false, 320, 400);
     }
 
 

@@ -108,7 +108,7 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         if (mBeauty == null) return;
 
         final String url = mBeauty.url + "?imageView2/0/w/" + mImageView.getWidth();
-        ImageLoader.getImageLoader().displayImageAsync(mImageView, url, false, true);
+        ImageLoader.getImageLoader().displayImageAsync(mImageView, url, false);
     }
 
 

@@ -132,7 +132,7 @@ public class DayRecommendActivity extends AppbarSearchActivity implements ISuper
 
         mBeauty = (GankBeauty) data.get(GankFetcher.DAY_RECOMMEND_BEAUTY);
         final String url = mBeauty.url + "?imageView2/0/w/320";
-        ImageLoader.getImageLoader().displayImageAsync(mBarImage, url, false, true, 320, 420);
+        ImageLoader.getImageLoader().displayImageAsync(mBarImage, url, false, 320, 420);
 
         mRefresher.stopRefreshing();
         showSnackBar("数据加载成功 ԅ(¯﹃¯ԅ)");

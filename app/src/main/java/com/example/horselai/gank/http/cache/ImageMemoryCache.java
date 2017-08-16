@@ -16,8 +16,12 @@ import java.util.Map;
 public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache<String, Bitmap>
 {
 
-    // private Map<String, SoftReference<Bitmap>> mSoftReferences;
-    private static final int DEFAULT_SIZE = (int) (Runtime.getRuntime().maxMemory() / 8);
+    private static final int DEFAULT_SIZE;
+
+    static {
+        final int max = (int) (Runtime.getRuntime().maxMemory() / 8);
+        DEFAULT_SIZE = max > 50 * 1024 * 1024 ? 50 * 1024 * 1024 : max;
+    }
 
 
     /**
@@ -28,7 +32,6 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
     public ImageMemoryCache(int maxSize)
     {
         super(maxSize);
-        // mSoftReferences = Collections.synchronizedMap(new HashMap<String, SoftReference<Bitmap>>());
     }
 
     public ImageMemoryCache()
@@ -55,7 +58,6 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
         final String md5 = EncryptionUtil.generateMd5(String.valueOf(key));
         if (md5 != null && get(md5) == null) {
             put(md5, value);
-            // mSoftReferences.put(md5, new SoftReference<Bitmap>(value));
         }
     }
 
@@ -65,10 +67,7 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
         final String md5 = EncryptionUtil.generateMd5(String.valueOf(key));
 
         if (md5 != null && get(md5) != null) {
-            Bitmap bitmap = get(md5);
-            if (bitmap != null && !bitmap.isRecycled()) bitmap.recycle();
             remove(md5);
-            //mSoftReferences.remove(md5);
         }
     }
 
@@ -83,11 +82,6 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
     {
         final Map<Object, Bitmap> snapshot = snapshot();
         for (Object e : snapshot.entrySet()) {
-            Bitmap bitmap = snapshot.get(e);
-            if (bitmap != null && !bitmap.isRecycled()) {
-                bitmap.recycle();
-            }
-            // mSoftReferences.remove(e);
             snapshot.remove(e);
         }
     }
@@ -97,7 +91,8 @@ public class ImageMemoryCache extends LruCache<Object, Bitmap> implements ICache
     protected void entryRemoved(boolean evicted, Object key, Bitmap oldValue, Bitmap newValue)
     {
 
-        // TODO: 2017/8/1 这里图片回收之后，会出现其他地方图片引用错误的问题
+        // TODO: 2017/8/1 这里图片回收之后，会出现其他地方图片引用错误的问题,shifo
+
         /*if (evicted && oldValue != null && !oldValue.isRecycled()) {
             oldValue.recycle();
             oldValue = null;

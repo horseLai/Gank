@@ -131,7 +131,7 @@ public abstract class BaseAppbarListActivity<T extends BeanEntry> extends Appbar
     @Override public void onPause()
     {
         super.onPause();
-        ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
+        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
     }
 
     /**

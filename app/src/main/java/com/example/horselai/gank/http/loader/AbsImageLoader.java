@@ -20,11 +20,11 @@ public abstract class AbsImageLoader
 
     public abstract void init(ImageLoaderConfig config, Context context) throws Exception;
 
-    public abstract void displaySyncFromCache(ImageView iv, String url, boolean showWhenImgUrlIsEmpty, boolean loadNow);
+    public abstract void displaySyncFromCache(ImageView iv, String url, boolean showWhenImgUrlIsEmpty);
 
     public abstract Bitmap fetchSyncFromCache(String url);
 
-    public abstract void displayImageAsync(ImageView iv, String url, boolean showWhenImgUrlIsEmpty, boolean loadNow, int targetW, int targetH);
+    public abstract void displayImageAsync(ImageView iv, String url, boolean showWhenImgUrlIsEmpty, int targetW, int targetH);
 
     public abstract Bitmap fetchFromNet(String url, boolean canCache, int targetW, int targetH);
 

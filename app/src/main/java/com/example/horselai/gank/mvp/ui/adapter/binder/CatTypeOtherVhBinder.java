@@ -48,8 +48,8 @@ public class CatTypeOtherVhBinder extends BaseViewHolderBinder<GankNews>
         vh.ivPlay.setTag(itemData);
         vh.btnMenuMore.setTag(itemData);
 
-        if (!TextUtils.isEmpty(itemData.image))
-            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.image + "?imageView2/0/w/320", false, mLoadImageNow, 320, 400);
+        if (!TextUtils.isEmpty(itemData.image) && mLoadImageNow)
+            ImageLoader.getImageLoader().displayImageAsync(vh.ivImage, itemData.image + "?imageView2/0/w/320", false, 320, 400);
     }
 
 

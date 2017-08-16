@@ -8,11 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.example.horselai.gank.app.App;
+import com.example.horselai.gank.http.cache.ObjectCachePool;
 import com.example.horselai.gank.util.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
@@ -23,7 +26,7 @@ import java.util.Locale;
  * 该类是个管理型工具类，用来处理Bitmap图片，包含图片压缩，切图，变换等一系列操作
  */
 
-public final class BitmapManager
+public final class BitmapManager implements Closeable
 {
 
     private static final String TAG = "BitmapManager";
@@ -33,9 +36,16 @@ public final class BitmapManager
     public static final int X_MODE_REVERSE_RTL = 0x3;
     public static final int Y_MODE_REVERSE_TTB = 0x4;
     public static final int Y_MODE_REVERSE_BTT = 0x5;
+    private ObjectCachePool<ByteArrayOutputStream> mOutputStreamPool;
 
     private BitmapManager()
     {
+        mOutputStreamPool = new ObjectCachePool<>(5, ByteArrayOutputStream.class);
+    }
+
+    @Override public void close() throws IOException
+    {
+        mOutputStreamPool.close();
     }
 
     static class Build
@@ -74,7 +84,10 @@ public final class BitmapManager
         if (bitmap == null) throw new NullPointerException("Bitmap is null !");
 
         ByteArrayInputStream bis = null;
-        try (final ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        ByteArrayOutputStream bos = null;
+
+        try {
+            bos = mOutputStreamPool.get();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
             bis = new ByteArrayInputStream(bos.toByteArray(), 0, bos.size());
             return decodeBitmap(bis, targetW, targetH);
@@ -82,6 +95,7 @@ public final class BitmapManager
             e.printStackTrace();
         } finally {
             Utils.close(bis);
+            mOutputStreamPool.recycle(bos);
         }
         return null;
     }
@@ -111,7 +125,8 @@ public final class BitmapManager
         ByteArrayOutputStream bos = null;
         try {
             bis = new BufferedInputStream(is);
-            bos = new ByteArrayOutputStream();
+            bos = mOutputStreamPool.get();
+
             while ((read = bis.read(buf)) != -1) {
                 bos.write(buf, 0, read);
             }
@@ -126,8 +141,21 @@ public final class BitmapManager
 
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
         } finally {
-            Utils.close(bis, is, bos);
+            Utils.close(bis, is);
+            recycleBos(bos);
         }
+    }
+
+    private void recycleBos(ByteArrayOutputStream bos)
+    {
+        if (bos == null) return;
+        if (App.DEBUG)
+            Log.i(TAG, String.format(Locale.getDefault(), "recycleBos: before write(0) = %d", bos.size()));
+        bos.write(0);
+        bos.reset();
+        mOutputStreamPool.recycle(bos);
+        if (App.DEBUG)
+            Log.i(TAG, String.format(Locale.getDefault(), "recycleBos: after write(0) = %d", bos.size()));
     }
 
     /**
@@ -153,7 +181,7 @@ public final class BitmapManager
     {
         ByteArrayOutputStream bos = null;
         try {
-            bos = new ByteArrayOutputStream();
+            bos = mOutputStreamPool.get();
             int quality = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, bos);
             if (DEBUG)
@@ -173,7 +201,7 @@ public final class BitmapManager
             return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 
         } finally {
-            Utils.close(bos);
+            recycleBos(bos);
         }
     }
 

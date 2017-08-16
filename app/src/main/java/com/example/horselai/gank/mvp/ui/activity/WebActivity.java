@@ -104,7 +104,7 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
             getToolbar().setBackgroundColor(getResources().getColor(R.color.grayBlue));
             return;
         }
-        ImageLoader.getImageLoader().displayImageAsync(mIvBarImage, mData.image, true, true);
+        ImageLoader.getImageLoader().displayImageAsync(mIvBarImage, mData.image, true);
     }
 
     ///////////////////////////////////////////////////////////////////////////

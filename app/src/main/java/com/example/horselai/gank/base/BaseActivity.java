@@ -29,11 +29,10 @@ public abstract class BaseActivity extends AppCompatActivity
 
     @Override protected void onPause()
     {
-        super.onPause();
-
         //清空请求队列
-        ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
-        AsyncService.getService().getPoolHandler().clearTaskQueue();
+        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
+        AsyncService.getService().getPoolHandler().cancelAndClearTaskQueue();
+        super.onPause();
     }
 
     /**

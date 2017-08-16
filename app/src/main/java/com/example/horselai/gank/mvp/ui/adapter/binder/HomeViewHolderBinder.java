@@ -256,8 +256,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
                 }
             });
             final String url = beauties.get(position).url;
-            if (!TextUtils.isEmpty(url))
-                ImageLoader.getImageLoader().displayImageAsync(ivImage, url + "?imageView2/0/w/320", false, isLoadImgNow, 320, 400);
+            if (!TextUtils.isEmpty(url) && isLoadImgNow)
+                ImageLoader.getImageLoader().displayImageAsync(ivImage, url + "?imageView2/0/w/320", false, 320, 400);
             container.addView(view);
             return view;
         }

@@ -266,8 +266,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 
         if (!mLoadImageNow) {
             //滑动过程中把其他现有队列任务都清理掉
-            ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
-            return;
+            ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
         }
 
         if (itemViewType == ItemType.TYPE_SLIDE_ROTATION) {

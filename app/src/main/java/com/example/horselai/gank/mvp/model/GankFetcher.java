@@ -327,9 +327,9 @@ public final class GankFetcher
         int itemType;
         if (GankApi.VIDEO.equals(type)) {
             itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_OTHER;
-        } else if (GankApi.ANDROID.equals(type)) {
+        }/* else if (GankApi.ANDROID.equals(type)) {
             itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_GRID;
-        } else {
+        }*/ else {
             //
             if (size % 2 != 0) itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_LINEAR;
             else itemType = BaseMultipleTypeListAdapter.ItemType.TYPE_GRID;
