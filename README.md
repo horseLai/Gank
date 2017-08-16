@@ -46,7 +46,7 @@
 ----
 
 # 作者
-哈哈，其实我的博客之内的没啥内容😀，没时间，所以只是做笔记，而没有去整理成博客，时间不多。
+其实博客没啥内容😀，只是做笔记，而没有去整理成博客。
 
 - 简书：http://www.jianshu.com/u/677e2d71d0b1
 - GitHub: https://github.com/horseLai
@@ -56,7 +56,7 @@
 
 # Licence
 ```
- Copyright (c) 2017 horseLai <lxl1542873238@hotmail.com>
+ Copyright (c) 2017 horseLai 
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
