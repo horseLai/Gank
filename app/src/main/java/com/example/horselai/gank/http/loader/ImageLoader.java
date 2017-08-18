@@ -37,7 +37,6 @@ public class ImageLoader extends AbsImageLoader implements Closeable
     private static final String TAG = "ImageLoader >>> ";
     private static final ThreadPoolHandler THREAD_POOL_HANDLER = new ThreadPoolHandler();
     public static final boolean DEBUG = App.DEBUG;
-    private static final Object LOCK_OBJECT = new Object();
 
     private ObjectCachePool<Result> mObjectCachePool;
     private ICache<String, Bitmap> mCache;
