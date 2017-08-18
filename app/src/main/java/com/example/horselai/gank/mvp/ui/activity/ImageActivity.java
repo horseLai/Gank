@@ -94,7 +94,7 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         mSnackbar.getView().setBackgroundColor(getResources().getColor(R.color.grayBlue));
     }
 
-    // TODO: 2017/7/22 添加图片缩放、编辑、可设置成壁纸等 功能、
+    // TODO: 2017/7/22 添加图片缩放、编辑 功能、
 
 
     boolean mFirstDisplay = true;
