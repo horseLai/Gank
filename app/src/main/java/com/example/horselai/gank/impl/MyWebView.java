@@ -59,6 +59,7 @@ public class MyWebView extends WebView implements NestedScrollingChild
         if (action == MotionEvent.ACTION_DOWN) {
             mNestedOffsetY = 0;
         }
+
         int eventY = (int) event.getY();
         event.offsetLocation(0, mNestedOffsetY);
         switch (action) {
@@ -161,4 +162,11 @@ public class MyWebView extends WebView implements NestedScrollingChild
         void onScrollChange(int dx, int dy);
     }
 
+
+    @Override public void destroy()
+    {
+        super.destroy();
+        removeAllViewsInLayout();
+        removeAllViews();
+    }
 }

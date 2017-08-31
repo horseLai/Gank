@@ -169,7 +169,8 @@ public class WebActivity extends BaseWebViewActivity implements ISuperView<Strin
                 break;
             }
             case R.id.fab_full_up: {
-                getWebView().pageUp(true);
+                //getWebView().pageUp(true);
+                getScrollParent().fullScroll(View.FOCUS_UP);
                 //保持标题滚动
                 getBarTitleView().requestFocus();
                 break;

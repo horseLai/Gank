@@ -172,6 +172,7 @@ public class BeautyGalleryActivity extends BaseAppbarListActivity<GankBeauty>
     @Override public void onRefresh()
     {
         mToClear = true;
+        mPageNum = 0;
         updateData(ITEM_SIZE, ++mPageNum);
     }
 

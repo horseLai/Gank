@@ -9,12 +9,8 @@ import android.view.View;
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.AppbarActivity;
 import com.example.horselai.gank.base.BaseFragmentStatePagerAdapter;
-import com.example.horselai.gank.mvp.ui.fragment.BlogGlowingFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogLuanXiangFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogMeituanFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogMoguFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogO2IoFragment;
-import com.example.horselai.gank.mvp.ui.fragment.BlogProductFragment;
+import com.example.horselai.gank.mvp.presenter.ReadingPresenter;
+import com.example.horselai.gank.mvp.ui.fragment.CommReadingListFragment;
 
 public class BlogActivity extends AppbarActivity
 {
@@ -53,12 +49,11 @@ public class BlogActivity extends AppbarActivity
         tabs.setupWithViewPager(vpContainer);
 
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BlogProductFragment(), "产品");
-        adapter.addFragment(new BlogMeituanFragment(), "美团");
-        adapter.addFragment(new BlogO2IoFragment(), "Auto.Io");
-        adapter.addFragment(new BlogGlowingFragment(), "Glow");
-        adapter.addFragment(new BlogMoguFragment(), "蘑菇街");
-        adapter.addFragment(new BlogLuanXiangFragment(), "乱象");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_PRODUCT), "产品");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_MEITUAN), "美团");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_O2IO), "Auto.Io");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_GLOWING), "Glow");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_MOGU), "蘑菇街");
         vpContainer.setAdapter(adapter);
 
     }

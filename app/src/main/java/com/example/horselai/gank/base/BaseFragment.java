@@ -30,10 +30,8 @@ public abstract class BaseFragment extends Fragment
     @Override public void onPause()
     {
         super.onPause();
-        //清空请求队列
-        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
-        AsyncService.getService().getPoolHandler().cancelAndClearTaskQueue();
-
+        ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
+        AsyncService.getService().getPoolHandler().clearTaskQueue();
     }
 
 
@@ -78,6 +76,9 @@ public abstract class BaseFragment extends Fragment
     {
         super.onDestroy();
         mBundle = null;
+        //清空请求队列
+        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
+        AsyncService.getService().getPoolHandler().cancelAndClearTaskQueue();
     }
 
 

@@ -18,6 +18,7 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
 {
     private static final String TAG = "ObjectCachePool";
     private final Class<T> tClass;
+    private final int mPoolSize;
 
     //以下两队列用来作为Result缓冲池，减少创建对象的次数以及GC频率
     //1.用来记录正在使用的Result
@@ -25,17 +26,24 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
     //2.用来记录已回收的Result
     private ConcurrentLinkedQueue<T> mFreeObjQueue;
 
-    public ObjectCachePool(Class<T> tClass)
+    /**
+     * @param poolSize 指定对象池大小
+     * @param tClass   对应类必须包含无参构造方法，否则会出错
+     */
+    public ObjectCachePool(int poolSize, Class<T> tClass)
     {
+        this.mPoolSize = poolSize;
         this.tClass = tClass;
     }
 
     /**
-     * @param initialObjCount 初始化创建的对象数量
+     * @param poolSize        指定对象池大小
+     * @param initialObjCount 初始化创建的对象数量，这个可以减轻启动时的对象创建压力（注意： initialObjCount <= poolSize）
      * @param tClass          对应类必须包含无参构造方法，否则会出错
      */
-    public ObjectCachePool(int initialObjCount, Class<T> tClass)
+    public ObjectCachePool(int poolSize, int initialObjCount, Class<T> tClass)
     {
+        this.mPoolSize = poolSize;
         this.tClass = tClass;
         mInUseObjQueue = new ConcurrentLinkedQueue<>();
         mFreeObjQueue = new ConcurrentLinkedQueue<>();
@@ -50,7 +58,6 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
     }
 
 
-
     /**
      * 回收Result对象
      */
@@ -59,6 +66,24 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
         if (obj == null) return;
         if (mInUseObjQueue.contains(obj)) mInUseObjQueue.remove(obj);
         mFreeObjQueue.add(obj);
+
+        // 检测容量
+        checkCapacity();
+    }
+
+    private void checkCapacity()
+    {
+        //在空闲的时候检测，高使用时不做处理
+        if (mInUseObjQueue.isEmpty()) return;
+        //取出多余项释放掉
+        int needFree = mFreeObjQueue.size() - mPoolSize;
+        while ((needFree--) > 0) {
+            try {
+                mFreeObjQueue.poll().close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -86,12 +111,14 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
             try {
                 mFreeObjQueue.poll().close();
             } catch (IOException e) {
+                // do nothing
             }
         }
         for (int i = 0; i < mInUseObjQueue.size(); i++) {
             try {
                 mInUseObjQueue.poll().close();
             } catch (IOException e) {
+                // do nothing
             }
         }
     }
