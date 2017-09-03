@@ -74,7 +74,7 @@ public class ObjectCachePool<T extends Closeable> implements Closeable
     private void checkCapacity()
     {
         //在空闲的时候检测，高使用时不做处理
-        if (mInUseObjQueue.isEmpty()) return;
+        if (!mInUseObjQueue.isEmpty()) return;
         //取出多余项释放掉
         int needFree = mFreeObjQueue.size() - mPoolSize;
         while ((needFree--) > 0) {
