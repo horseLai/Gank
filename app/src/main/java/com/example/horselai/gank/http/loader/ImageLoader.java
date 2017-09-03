@@ -256,7 +256,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
      */
     public void displayImageAsync(final ImageView iv, final String url, final boolean goneIfNull)
     {
-        displayImageAsync(iv, url, goneIfNull, 0, 0);
+        displayImageAsync(iv, url, goneIfNull, iv.getWidth(), iv.getHeight());
     }
 
 
