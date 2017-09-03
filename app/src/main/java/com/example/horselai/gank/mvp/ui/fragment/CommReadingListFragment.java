@@ -20,17 +20,28 @@ import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.RefresherHelper;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by horseLai on 2017/8/8.
  */
 
-public abstract class CommReadingListFragment extends BaseListFragment<GankReading>
+public class CommReadingListFragment extends BaseListFragment<GankReading>
 {
     private int mPageNum = 1;
     private RefresherHelper mRefresher;
     private BaseMultipleTypeListAdapter<GankReading> mAdapter;
+    private int mFragmentType;
+
+    public CommReadingListFragment()
+    {
+    }
+
+    public CommReadingListFragment setFragmentType(int fragmentType)
+    {
+        mFragmentType = fragmentType;
+        return this;
+    }
 
     @Override protected int provideLayoutId()
     {
@@ -70,15 +81,14 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
 
         //恢复数据
         if (bundle == null) {
-            updateData(getFragmentType(), mPageNum);
+            updateData(mFragmentType, mPageNum);
         } else {
             mAdapter.removeAllItems();
-            mAdapter.insertItemsIntoFootPos((LinkedList<GankReading>) bundle.getSerializable("data"));
+            mAdapter.insertItemsIntoFootPos((List<GankReading>) bundle.getSerializable("data"));
         }
 
     }
 
-    protected abstract int getFragmentType();
 
     private void addListListener(RecyclerView rvList)
     {
@@ -112,7 +122,7 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
         if (dy > 20 && toLoad && !mRefresher.isRefreshing()) {
 
             showSnackBar("正在加载更多...ฅʕ•̫͡•ʔฅ ");
-            updateData(getFragmentType(), ++mPageNum);
+            updateData(mFragmentType, ++mPageNum);
         }
     }
 
@@ -124,11 +134,7 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
             @Override public void onItemClicked(View v, int position)
             {
                 final GankReading reading = mAdapter.getDataList().get(position);
-                /*if ("知乎日报".equalsIgnoreCase(reading.source)) {
-                    Utils.startActivity(mContext, ReadingDetailActivity.class);
-                    return;
-                }*/
-                //App.toastShort(reading.title);
+
                 final GankNews news = new GankNews();
                 news.url = reading.url;
                 news.desc = reading.title;
@@ -136,6 +142,7 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
                 news.type = reading.source;
 
                 GankUI.startWebActivity(mContext, news);
+
             }
         });
     }
@@ -157,7 +164,7 @@ public abstract class CommReadingListFragment extends BaseListFragment<GankReadi
     {
         mPageNum = 1;
         mFromRefresher = true;
-        updateData(getFragmentType(), mPageNum);
+        updateData(mFragmentType, mPageNum);
     }
 
     @Override public void onSaveInstanceState(Bundle outState)

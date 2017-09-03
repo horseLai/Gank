@@ -85,7 +85,6 @@ public class ThreadPoolHandler
         }
         if (mFutureTasks.contains(task)) mFutureTasks.remove(task);
     }
-/*
 
     public synchronized void clearTaskQueue()
     {
@@ -93,7 +92,6 @@ public class ThreadPoolHandler
             QUEUE.clear();
         }
     }
-*/
 
     public synchronized void cancelAndClearTaskQueue()
     {

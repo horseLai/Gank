@@ -40,7 +40,7 @@ public final class BitmapManager implements Closeable
 
     private BitmapManager()
     {
-        mOutputStreamPool = new ObjectCachePool<>(5, ByteArrayOutputStream.class);
+        mOutputStreamPool = new ObjectCachePool<>(5, 5, ByteArrayOutputStream.class);
     }
 
     @Override public void close() throws IOException

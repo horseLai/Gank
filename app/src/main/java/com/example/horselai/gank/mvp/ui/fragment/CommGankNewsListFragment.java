@@ -17,7 +17,7 @@ import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.RefresherHelper;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by horseLai on 2017/7/26.
@@ -74,7 +74,7 @@ public abstract class CommGankNewsListFragment extends BaseListFragment<GankNews
             showSnackBar("正在加载数据！ฅʕ•̫͡•ʔฅ");
         } else {
             mAdapter.removeAllItems();
-            mAdapter.insertItemsIntoFootPos((LinkedList<GankNews>) savedInstanceState.getSerializable("data"));
+            mAdapter.insertItemsIntoFootPos((List<GankNews>) savedInstanceState.getSerializable("data"));
         }
     }
 

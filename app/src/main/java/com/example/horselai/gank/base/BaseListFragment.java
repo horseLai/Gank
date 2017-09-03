@@ -58,7 +58,6 @@ public abstract class BaseListFragment<T extends BeanEntry> extends BaseFragment
         mRefresherHelper = new RefresherHelper(rootView, R.id.fragment_base_refresher, BaseListFragment.this);
         mRvList = (RecyclerView) rootView.findViewById(R.id.fragment_base_list);
 
-
         mRvList.setLayoutManager(onCreateLayoutManager());
         final BaseMultipleTypeListAdapter<T> adapter = onCreateAdapter();
 

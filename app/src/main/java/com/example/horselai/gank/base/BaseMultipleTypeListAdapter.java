@@ -14,9 +14,7 @@ import com.example.horselai.gank.app.App;
 import com.example.horselai.gank.http.loader.ImageLoader;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Created by laixiaolong on 2017/4/25.
@@ -38,7 +36,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 {
     protected Context mContext;
     //使用链表主要是因为这里可能有大量的插入、删除操作
-    private LinkedList<T> mDataList;
+    private ArrayList<T> mDataList;
     private LayoutInflater mLayoutInflater;
     private BaseViewHolderBinder mViewHolderBinder;
     private static final String TAG = "BaseMultipleTypeListAda";
@@ -112,7 +110,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     {
         this.mContext = context;
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mDataList = new LinkedList<>();
+        mDataList = new ArrayList<>();
     }
 
     public interface ItemType
@@ -130,8 +128,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     }
 
 
-
-    public void addItemsToHeadPos(ArrayList<T> items)
+    public void addItemsToHeadPos(List<T> items)
     {
         insertItemsIntoIndex(0, items);
     }
@@ -199,7 +196,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         }
     }
 
-    public LinkedList<T> getDataList()
+    public ArrayList<T> getDataList()
     {
         return mDataList;
     }
@@ -261,7 +258,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 
         final int itemViewType = getItemViewType(position);
         //对于链表而言，使用iterator做get操作性能更好
-        final ListIterator<T> iterator = mDataList.listIterator(position);
+        //final ListIterator<T> iterator = mDataList.listIterator(position);
         //if (!iterator.hasNext()) return;
 
         if (!mLoadImageNow) {
@@ -270,23 +267,23 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
         }
 
         if (itemViewType == ItemType.TYPE_SLIDE_ROTATION) {
-            mViewHolderBinder.onBindSliderRotationViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindSliderRotationViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_CATEGORY_BAR) {
-            mViewHolderBinder.onBindCategoryBarViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindCategoryBarViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_HEADER) {
-            mViewHolderBinder.onBindHeaderViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindHeaderViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_LINEAR) {
-            mViewHolderBinder.onBindLinearViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindLinearViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_GRID) {
-            mViewHolderBinder.onBindGridViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindGridViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_STAGGERED) {
-            mViewHolderBinder.onBindStaggeredViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindStaggeredViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_LIST) {
-            mViewHolderBinder.onBindListViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindListViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (itemViewType == ItemType.TYPE_OTHER) {
-            mViewHolderBinder.onBindOtherViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindOtherViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         } else if (TYPE_ORDINARY == itemViewType) {
-            mViewHolderBinder.onBindOrdinaryViewHolder(holder, mLoadImageNow, iterator.next(), position);
+            mViewHolderBinder.onBindOrdinaryViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         }
 
         final long last = System.currentTimeMillis();

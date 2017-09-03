@@ -30,8 +30,8 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override protected void onPause()
     {
         //清空请求队列
-        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
-        AsyncService.getService().getPoolHandler().cancelAndClearTaskQueue();
+        ImageLoader.getImageLoader().getThreadPoolHandler().clearTaskQueue();
+        AsyncService.getService().getPoolHandler().clearTaskQueue();
         super.onPause();
     }
 
@@ -49,6 +49,12 @@ public abstract class BaseActivity extends AppCompatActivity
         return wh;
     }
 
+    @Override protected void onDestroy()
+    {
+        super.onDestroy();
+        ImageLoader.getImageLoader().getThreadPoolHandler().cancelAndClearTaskQueue();
+        AsyncService.getService().getPoolHandler().cancelAndClearTaskQueue();
+    }
 
     /**
      * 主动申请 gc

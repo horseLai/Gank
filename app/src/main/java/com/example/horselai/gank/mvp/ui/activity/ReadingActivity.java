@@ -9,14 +9,8 @@ import android.view.View;
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.AppbarActivity;
 import com.example.horselai.gank.base.BaseFragmentStatePagerAdapter;
-import com.example.horselai.gank.mvp.ui.fragment.Reading36KrFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingBusinessFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingCuriosityFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingEnglandLifeFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingIdealLifeFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingJianDanFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingYueGuangFragment;
-import com.example.horselai.gank.mvp.ui.fragment.ReadingZhiHuFragment;
+import com.example.horselai.gank.mvp.presenter.ReadingPresenter;
+import com.example.horselai.gank.mvp.ui.fragment.CommReadingListFragment;
 
 public class ReadingActivity extends AppbarActivity
 {
@@ -56,14 +50,14 @@ public class ReadingActivity extends AppbarActivity
         tabs.setupWithViewPager(vpContainer);
 
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Reading36KrFragment(), "36Kr");
-        adapter.addFragment(new ReadingZhiHuFragment(), "知乎日报");
-        adapter.addFragment(new ReadingCuriosityFragment(), "好奇心");
-        adapter.addFragment(new ReadingBusinessFragment(), "创业邦");
-        adapter.addFragment(new ReadingEnglandLifeFragment(), "英国那些事");
-        adapter.addFragment(new ReadingYueGuangFragment(), "月光博客");
-        adapter.addFragment(new ReadingIdealLifeFragment(), "理想生活");
-        adapter.addFragment(new ReadingJianDanFragment(), "煎蛋");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_36KR), "36Kr");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_ZHIHU_DAILY), "知乎日报");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_CURIOSITY), "好奇心");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_BUSINESS), "创业邦");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_ENGLAND_LIFE), "英国那些事");
+        // adapter.addFragment(new CommReadingListFragment()  .setFragmentType(ReadingPresenter.TYPE_YUEGUANG), "月光博客");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_IDEAL_LIF), "理想生活");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_JIANDAN), "煎蛋");
         vpContainer.setAdapter(adapter);
 
     }

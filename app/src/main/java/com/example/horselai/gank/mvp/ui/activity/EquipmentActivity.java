@@ -9,11 +9,8 @@ import android.view.View;
 import com.example.horselai.gank.R;
 import com.example.horselai.gank.base.AppbarActivity;
 import com.example.horselai.gank.base.BaseFragmentStatePagerAdapter;
-import com.example.horselai.gank.mvp.ui.fragment.EquipAppAntiFragment;
-import com.example.horselai.gank.mvp.ui.fragment.EquipAppMinFragment;
-import com.example.horselai.gank.mvp.ui.fragment.EquipDigitaliFragment;
-import com.example.horselai.gank.mvp.ui.fragment.EquipLiqiFragment;
-import com.example.horselai.gank.mvp.ui.fragment.EquipMacPlayFragment;
+import com.example.horselai.gank.mvp.presenter.ReadingPresenter;
+import com.example.horselai.gank.mvp.ui.fragment.CommReadingListFragment;
 
 public class EquipmentActivity extends AppbarActivity
 {
@@ -51,11 +48,11 @@ public class EquipmentActivity extends AppbarActivity
         tabs.setupWithViewPager(vpContainer);
 
         final BaseFragmentStatePagerAdapter adapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new EquipDigitaliFragment(), "数字尾巴");
-        adapter.addFragment(new EquipLiqiFragment(), "利器");
-        adapter.addFragment(new EquipMacPlayFragment(), "Mac玩法");
-        adapter.addFragment(new EquipAppMinFragment(), "小众软件");
-        adapter.addFragment(new EquipAppAntiFragment(), "反斗软件");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_DIGITAL), "数字尾巴");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_LIQI), "利器");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_MAC_PLAY), "Mac玩法");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_APP_MINORITY), "小众软件");
+        adapter.addFragment(new CommReadingListFragment().setFragmentType(ReadingPresenter.TYPE_APP_ANTI), "反斗软件");
         vpContainer.setAdapter(adapter);
 
     }

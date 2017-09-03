@@ -76,10 +76,19 @@ public class ImageLoader extends AbsImageLoader implements Closeable
                     break;
             }
             //使用完成，收录到缓存
-            mObjectCachePool.recycle(result);
+            recycleResult(result);
+
         }
 
     };
+
+    private void recycleResult(Result result)
+    {
+        result.bitmap = null;
+        result.url = null;
+        result.imageView = null;
+        mObjectCachePool.recycle(result);
+    }
 
 
     public ThreadPoolHandler getThreadPoolHandler()
@@ -138,7 +147,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
 
         initCache(cacheMethod, diskCacheSize, context, compressFormat, compressQuality);
         //创建缓冲池
-        mObjectCachePool = new ObjectCachePool<>(25, Result.class);
+        mObjectCachePool = new ObjectCachePool<>(25, 20, Result.class);
     }
 
 
@@ -247,7 +256,7 @@ public class ImageLoader extends AbsImageLoader implements Closeable
      */
     public void displayImageAsync(final ImageView iv, final String url, final boolean goneIfNull)
     {
-        displayImageAsync(iv, url, goneIfNull, 0, 0);
+        displayImageAsync(iv, url, goneIfNull, iv.getWidth(), iv.getHeight());
     }
 
 
