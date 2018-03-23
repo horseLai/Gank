@@ -1,7 +1,9 @@
 package com.example.horselai.gank.http.service;
 
 import android.support.annotation.NonNull;
+import android.util.ArrayMap;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.example.horselai.gank.app.App;
 

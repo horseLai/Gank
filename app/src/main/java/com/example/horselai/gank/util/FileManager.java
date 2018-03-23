@@ -104,11 +104,12 @@ public class FileManager
      */
     public File initHomeDir(Context context, String homeDirName)
     {
-        File file = new File("/storage/sdcard0/" + homeDirName);
-        createDir(file.getPath());
+        //File file = new File("/storage/sdcard0/" + homeDirName);
+        File file = new File(context.getExternalFilesDir(null), homeDirName);
+        createDir(file.getAbsolutePath());
         if (!file.exists() || !file.isDirectory()) {
-            file = new File(context.getFilesDir(), homeDirName + File.separator);
-            createDir(file.getPath());
+            file = new File(context.getExternalCacheDir(), homeDirName);
+            createDir(file.getAbsolutePath());
         }
         return file;
     }
@@ -122,13 +123,13 @@ public class FileManager
     {
         File file = App.getAppHomePath();
         if (file != null) {
-            file = new File(file.getPath() + "/" + picDir);
+            file = new File(file.getAbsoluteFile(), picDir);
             createDir(file.getPath());
             return file;
         }
         //保底操作
-        file = new File(context.getFilesDir() + picDir + File.separator);
-        createDir(file.getPath());
+        file = new File(context.getFilesDir(), picDir);
+        createDir(file.getAbsolutePath());
         return file;
     }
 

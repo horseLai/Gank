@@ -38,7 +38,7 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     //使用链表主要是因为这里可能有大量的插入、删除操作
     private ArrayList<T> mDataList;
     private LayoutInflater mLayoutInflater;
-    private BaseViewHolderBinder mViewHolderBinder;
+    protected BaseViewHolderBinder mViewHolderBinder;
     private static final String TAG = "BaseMultipleTypeListAda";
 
     private boolean mLoadImageNow = true;
@@ -97,7 +97,8 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
 
     private boolean mHasLayoutManager = false;
 
-    @Override public void onAttachedToRecyclerView(RecyclerView recyclerView)
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView)
     {
         if (!mHasLayoutManager) {
             mHasLayoutManager = true;
@@ -109,21 +110,21 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     public BaseMultipleTypeListAdapter(Context context)
     {
         this.mContext = context;
-        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutInflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mDataList = new ArrayList<>();
     }
 
-    public interface ItemType
+    public static final class ItemType
     {
-
-        int TYPE_SLIDE_ROTATION = 1;
-        int TYPE_HEADER = 2;
-        int TYPE_LINEAR = 3;
-        int TYPE_GRID = 4;
-        int TYPE_STAGGERED = 5;
-        int TYPE_LIST = 6;
-        int TYPE_OTHER = 7;
-        int TYPE_CATEGORY_BAR = 8;
+        public static int TYPE_SLIDE_ROTATION = 1;
+        public static int TYPE_HEADER = 2;
+        public static int TYPE_LINEAR = 3;
+        public static int TYPE_GRID = 4;
+        public static int TYPE_STAGGERED = 5;
+        public static int TYPE_LIST = 6;
+        public static int TYPE_OTHER = 7;
+        public static int TYPE_CATEGORY_BAR = 8;
 
     }
 
@@ -202,7 +203,8 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     }
 
 
-    @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         if (mViewHolderBinder == null) {
             throw new RuntimeException("大哥，BaseCommViewHolderBinder是必须设置的，不然咋搞 ,,ԾㅂԾ,, ！！");
@@ -245,10 +247,12 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     }
 
 
-    long delay = 0;
-    @Override public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
+    //private long delay = 0;
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position)
     {
-        final long start = System.currentTimeMillis();
+       // final long start = System.currentTimeMillis();
 
         if (mViewHolderBinder == null) {
             throw new RuntimeException("大哥，BaseCommViewHolderBinder是必须设置的，不然咋搞 ,,ԾㅂԾ,, ！！");
@@ -286,12 +290,12 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
             mViewHolderBinder.onBindOrdinaryViewHolder(holder, mLoadImageNow, mDataList.get(position), position);
         }
 
-        final long last = System.currentTimeMillis();
+        /*final long last = System.currentTimeMillis();
         delay += (last - start);
         if (position % 20 == 0) {
             Log.i(TAG, "onBindViewHolder: delay : " + delay + " ms");
             delay = 0;
-        }
+        }*/
     }
 
 
@@ -303,14 +307,16 @@ public abstract class BaseMultipleTypeListAdapter<T extends BeanEntry> extends R
     public abstract boolean hasFooterView();
 
 
-    @Override public int getItemCount()
+    @Override
+    public int getItemCount()
     {
         final int size = mDataList.size();
         return hasFooterView() ? size + 1 : size;
     }
 
 
-    @Override public int getItemViewType(int position)
+    @Override
+    public int getItemViewType(int position)
     {
         final int size = mDataList.size();
 

@@ -44,7 +44,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
     protected RecyclerView.ViewHolder onCreateCategoryBarViewHolder(ViewGroup parent, int viewType)
     {
         View view = mLayoutInflater.inflate(R.layout.home_category_bar, parent, false);
-        StaggeredGridLayoutManager.LayoutParams staggeredLayoutParams = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+        StaggeredGridLayoutManager.LayoutParams staggeredLayoutParams =
+                (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
         staggeredLayoutParams.setFullSpan(true);
         view.setLayoutParams(staggeredLayoutParams);
         return new CategoryBarVH(view);
@@ -54,7 +55,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
     protected RecyclerView.ViewHolder onCreateSliderRotationViewHolder(ViewGroup parent, int viewType)
     {
         View view = mLayoutInflater.inflate(R.layout.home_type_top_slide, parent, false);
-        StaggeredGridLayoutManager.LayoutParams staggeredLayoutParams = (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
+        StaggeredGridLayoutManager.LayoutParams staggeredLayoutParams =
+                (StaggeredGridLayoutManager.LayoutParams) view.getLayoutParams();
         staggeredLayoutParams.setFullSpan(true);
         view.setLayoutParams(staggeredLayoutParams);
 
@@ -89,7 +91,7 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
     private Handler mHandler;
     private static final String TAG = "HomeViewHolderBinder";
 
-    private class SlideRotationVH extends RecyclerView.ViewHolder
+    public class SlideRotationVH extends RecyclerView.ViewHolder
     {
         private final ViewPager viewPager;
         private int itemCount = 0;
@@ -111,23 +113,27 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
 
         private void initHandler()
         {
-            if (mHandler == null) mHandler = new Handler(Looper.getMainLooper())
-            {
-                @Override public void handleMessage(Message msg)
+            if (mHandler == null) {
+                mHandler = new Handler(Looper.getMainLooper())
                 {
-                    if (msg.what == 0 && !Utils.isEmpty(beauties)) {
-                        viewPager.setCurrentItem(itemCount < beauties.size() ? itemCount++ : 0, true);
+                    @Override
+                    public void handleMessage(Message msg)
+                    {
+                        if (msg.what == 0 && !Utils.isEmpty(beauties)) {
+                            viewPager.setCurrentItem(itemCount < beauties.size() ? itemCount++ : 0, true);
+                        }
+                        if (App.DEBUG) Log.i(TAG, "handleMessage: itemCount : " + itemCount);
                     }
-                    if (App.DEBUG) Log.i(TAG, "handleMessage: itemCount : " + itemCount);
-                }
-            };
+                };
+            }else setupSlideRotation();
         }
 
         private void addListener()
         {
             viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener()
             {
-                @Override public void onPageSelected(int position)
+                @Override
+                public void onPageSelected(int position)
                 {
                     itemCount = position;
                 }
@@ -146,7 +152,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
 
             mTimer.scheduleAtFixedRate(new TimerTask()
             {
-                @Override public void run()
+                @Override
+                public void run()
                 {
                     if (mHandler != null) mHandler.sendEmptyMessage(0);
                 }
@@ -179,7 +186,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             itemView.findViewById(R.id.tv_cat_blog).setOnClickListener(this);
         }
 
-        @Override public void onClick(View v)
+        @Override
+        public void onClick(View v)
         {
             switch (v.getId()) {
                 case R.id.tv_cat_all: {
@@ -232,25 +240,29 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             notifyDataSetChanged();
         }
 
-        @Override public int getCount()
+        @Override
+        public int getCount()
         {
             return beauties.size();
         }
 
-        @Override public boolean isViewFromObject(View view, Object object)
+        @Override
+        public boolean isViewFromObject(View view, Object object)
         {
             return view == object;
         }
 
 
-        @Override public Object instantiateItem(ViewGroup container, final int position)
+        @Override
+        public Object instantiateItem(ViewGroup container, final int position)
         {
             View view = mLayoutInflater.inflate(R.layout.vp_slide_item, container, false);
             ImageView ivImage = (ImageView) view.findViewById(R.id.iv_slide_image);
 
             ivImage.setOnClickListener(new View.OnClickListener()
             {
-                @Override public void onClick(View v)
+                @Override
+                public void onClick(View v)
                 {
                     GankUI.startImageActivity(mContext, beauties.get(position));
                 }
@@ -262,7 +274,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
             return view;
         }
 
-        @Override public void destroyItem(ViewGroup container, int position, Object object)
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object)
         {
             if (object != null) {
                 container.removeView((View) object);
@@ -291,7 +304,8 @@ public class HomeViewHolderBinder extends CommMultipleVHBinder<CommHomeItem>
     /**
      * 释放资源，在Fragment或Activity的onDestroy()或onStop()中调用
      */
-    @Override public void release()
+    @Override
+    public void release()
     {
         if (mTimer != null) {
             mTimer.cancel();

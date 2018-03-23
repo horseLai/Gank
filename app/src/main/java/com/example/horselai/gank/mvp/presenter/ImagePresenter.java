@@ -2,6 +2,7 @@ package com.example.horselai.gank.mvp.presenter;
 
 import android.app.WallpaperManager;
 import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 
 import com.example.horselai.gank.app.App;
@@ -13,6 +14,8 @@ import com.example.horselai.gank.mvp.presenter.iPresenter.AbsSuperPresenter;
 import com.example.horselai.gank.mvp.ui.iView.ISuperView;
 import com.example.horselai.gank.util.FileManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -53,6 +56,7 @@ public class ImagePresenter extends AbsSuperPresenter<String>
             @Override public void onSuccess(String url)
             {
                 getHandler().obtainMessage(SUCCESS, "下载成功！").sendToTarget();
+
             }
 
             @Override public void onFailed(String url, Exception e)
