@@ -167,6 +167,7 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
 
     }
 
+
     private GankNews getNews(T itemData)
     {
         if (itemData instanceof CommHomeItem) {
@@ -217,5 +218,8 @@ public abstract class CommMultipleVHBinder<T extends BeanEntry> extends BaseView
 
     }
 
-    @Override public abstract void release();
+
+    @Override public  void release(){
+        mClickEventListener = null;
+    }
 }

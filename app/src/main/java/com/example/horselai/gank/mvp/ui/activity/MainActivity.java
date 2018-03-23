@@ -1,5 +1,6 @@
 package com.example.horselai.gank.mvp.ui.activity;
 
+import android.Manifest;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Process;
@@ -66,6 +67,9 @@ public class MainActivity extends NavigationViwPagerActivity
 
         setupViewPager();
         initOthers();
+
+        final String WR_PERM = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        checkAndRequestPermission(WR_PERM, new String[]{WR_PERM}, 666);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
@@ -25,6 +26,7 @@ import com.example.horselai.gank.util.FileManager;
 import com.example.horselai.gank.util.Utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class ImageActivity extends AppbarActivity implements View.OnClickListener, ISuperView<String>
 {
@@ -202,13 +204,12 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         }
 
         showSnackBar(data + "(●'◡'●)");
-        /*
         //插入MediaStore.Images， 但是它存在于相册
         try {
             MediaStore.Images.Media.insertImage(getContentResolver(), mPresenter.getPicPath(mBeauty.url), "", "contributed by " + mBeauty.who);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } */
+        }
     }
 
     @Override public void onLoadFailed(Exception e)

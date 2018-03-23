@@ -11,15 +11,15 @@
         android:id="@+id/bar_collapse"
         style="@style/AppBarCollapseLayoutStyle"
         app:layout_scrollFlags="enterAlways|scroll"
-        app:contentScrim="@color/colorPrimaryDark"
+        app:contentScrim="@color/colorPrimary"
         >
         <!--
             android:paddingTop="@dimen/status_bar_height"
-            -->
-        <include layout="@layout/toolbar_comm"/>
+         -->
+        <include layout="@layout/toolbar_comm" />
 
     </android.support.design.widget.CollapsingToolbarLayout>
 
-    <include layout="@layout/tabs_comm"/>
+    <include layout="@layout/tabs_comm" />
 </android.support.design.widget.AppBarLayout>
 

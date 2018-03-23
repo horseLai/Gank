@@ -35,7 +35,7 @@ public abstract class AbsSuperPresenter<T>
         }
     };
 
-    public ISuperView getView()
+    public ISuperView<T> getView()
     {
         return mView;
     }
@@ -45,7 +45,7 @@ public abstract class AbsSuperPresenter<T>
         return mHandler;
     }
 
-    public AbsSuperPresenter(ISuperView mView)
+    public AbsSuperPresenter(ISuperView<T> mView)
     {
         this.mView = mView;
     }

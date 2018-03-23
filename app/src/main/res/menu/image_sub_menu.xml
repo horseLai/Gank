@@ -8,7 +8,7 @@
     <!--<item
         android:id="@+id/menu_lock_wallpaper"
         android:title="@string/setting_lock_wallpaper"/>
--->
+
     <item
         android:id="@+id/menu_rotate_right"
         android:title="@string/rotate_right_90"/>
@@ -19,6 +19,6 @@
 
     <item
         android:id="@+id/menu_cut"
-        android:title="@string/cut"/>
+        android:title="@string/cut"/>-->
 
 </menu>

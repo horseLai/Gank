@@ -7,5 +7,9 @@
     <!--
         android:paddingTop="@dimen/status_bar_height"
         -->
-    <include layout="@layout/toolbar_comm"/>
+    <include
+        layout="@layout/toolbar_comm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </android.support.design.widget.AppBarLayout>
