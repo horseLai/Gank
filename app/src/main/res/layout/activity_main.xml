@@ -6,7 +6,6 @@
     style="@style/StyleMMParent"
     >
 
-
     <include layout="@layout/header_background_image"/>
 
     <android.support.design.widget.CoordinatorLayout

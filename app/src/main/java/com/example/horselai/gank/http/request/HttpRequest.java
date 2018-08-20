@@ -82,6 +82,66 @@ public class HttpRequest
     }
 
 
+    /**
+     * 创建一个通用请求
+     *
+     * @param url
+     * @param canCache 是否缓存
+     * @return 返回一个已经连接好的请求
+     * @throws Exception
+     */
+    public static HttpRequest newNormalRequest(String url, boolean canCache) throws Exception
+    {
+        Log.i(TAG, "newNormalRequest: " + url);
+        return new HttpRequest.Creator().canCache(canCache).url(url).create(HttpRequest.GET);
+    }
+
+    /**
+     * 记得在流处理完成后中断连接
+     */
+    public InputStream getInputStream()
+    {
+        if (conn != null) {
+            //
+            if (canCache) {
+                conn.addRequestProperty("Cache-Control", "only-if-cached");
+                conn.addRequestProperty("Cache-Control", "max-stale=" + MAX_STALE);
+            }
+            InputStream is = null;
+            try {
+                Log.i(TAG, "getInputStream: " + conn.getResponseMessage());
+                is = canCache ? conn.getInputStream() : //读缓存
+                        conn.getResponseCode() == HttpURLConnection.HTTP_OK ?//读网络
+                                conn.getInputStream() : null;
+            } catch (IOException e) {
+                if (canCache) { // 缓存读取失败时读网络
+                    if (App.DEBUG)
+                        Log.i(TAG, "getInputStream: failed to read cache .. now fetch from net");
+                    conn.setRequestProperty("Cache-Control", "no-cache");
+                    conn.setRequestProperty("Cache-Control", "max-age=0");
+                    try {
+                        is = conn.getResponseCode() == HttpURLConnection.HTTP_OK ? conn.getInputStream() : null;
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+            return is;
+        }
+        return null;
+    }
+
+
+    /**
+     * 流处理完成后中断连接（配合getInputStream()使用）
+     */
+    public void disconnect()
+    {
+        if (conn != null) {
+            conn.disconnect();
+        }
+    }
+
     // TODO: 2017/4/18 处理 301 网页重定向问题
     private HttpRequest connect()
     {
@@ -90,6 +150,8 @@ public class HttpRequest
             conn = (HttpURLConnection) url.openConnection();
             if (!conn.getURL().getHost().equals(url.getHost())) {
                 //网页重定向了
+                Log.i(TAG, "connect: 重定向啦  " + conn.getResponseCode());
+                Log.i(TAG, "connect: Error::" + parseString("utf-8", conn.getErrorStream()));
                 conn = null;
                 return this;
             }
@@ -124,76 +186,6 @@ public class HttpRequest
         return this;
     }
 
-    /**
-     * 记得在流处理完成后中断连接
-     */
-    public InputStream getInputStream()
-    {
-        if (conn != null) {
-            //
-            if (canCache) {
-                conn.addRequestProperty("Cache-Control", "only-if-cached");
-                conn.addRequestProperty("Cache-Control", "max-stale=" + MAX_STALE);
-            }
-            InputStream is = null;
-            try {
-
-                conn.connect();
-                Log.i(TAG, "getInputStream: " + conn.getResponseMessage());
-                is = canCache ? conn.getInputStream() : //读缓存
-                        conn.getResponseCode() == HttpURLConnection.HTTP_OK ?//读网络
-                                conn.getInputStream() : null;
-            } catch (IOException e) {
-                if (canCache) { // 缓存读取失败时读网络
-                    if (App.DEBUG)
-                        Log.i(TAG, "getInputStream: failed to read cache .. now fetch from net");
-                    conn.setRequestProperty("Cache-Control", "no-cache");
-                    conn.setRequestProperty("Cache-Control", "max-age=0");
-                    try {
-                        conn.connect();
-                        is = conn.getResponseCode() == HttpURLConnection.HTTP_OK ? conn.getInputStream() : null;
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                }
-            }
-            return is;
-        }
-        return null;
-    }
-
-
-    /**
-     * 流处理完成后中断连接（配合getInputStream()使用）
-     */
-    public void disconnect()
-    {
-        if (conn != null) {
-            conn.disconnect();
-        }
-    }
-
-
-    /**
-     * 文本类请求
-     *
-     * @param charset
-     * @return 文本数据
-     */
-    public String doRequest(String charset)
-    {
-        final InputStream is = getInputStream();
-        try {
-            if (is != null) {
-                return parseString(charset, is);
-            }
-        } finally {
-            Utils.close(is);
-            conn.disconnect();
-        }
-        return null;
-    }
-
 
     public ArrayMap<String, String> getRequestParams()
     {
@@ -205,18 +197,25 @@ public class HttpRequest
         return url;
     }
 
-
     /**
-     * 创建一个通用请求
+     * 文本类请求
      *
-     * @param url
-     * @param canCache 是否缓存
-     * @return 返回一个已经连接好的请求
-     * @throws Exception
+     * @param charset
+     * @return 文本数据
      */
-    public static HttpRequest newNormalRequest(String url, boolean canCache) throws Exception
+    public String doRequest(String charset)
     {
-        return new HttpRequest.Creator().canCache(canCache).url(url).create(HttpRequest.GET);
+        final InputStream is = getInputStream();
+
+        try {
+            if (is != null) {
+                return parseString(charset, is);
+            }
+        } finally {
+            Utils.close(is);
+            conn.disconnect();
+        }
+        return null;
     }
 
     @Nullable public static String parseString(@NonNull String charset, InputStream httpInputStream)
@@ -259,7 +258,6 @@ public class HttpRequest
         return sb.toString();
     }
 
-
     public static class Creator
     {
         private ArrayMap<String, String> requestHeaders;
@@ -274,10 +272,11 @@ public class HttpRequest
         {
             requestHeaders = new ArrayMap<>();
             //初始化默认消息头
-            requestHeaders.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:53.0) Gecko/20100101 Firefox/53.0");
-            requestHeaders.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-            requestHeaders.put("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3");
+            requestHeaders.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36");
+            requestHeaders.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8");
+            requestHeaders.put("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
             requestHeaders.put("Connection", "keep-alive");
+            requestHeaders.put("Upgrade-Insecure-Requests", "1");
         }
 
         public Creator canCache(boolean canCache)

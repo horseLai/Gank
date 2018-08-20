@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.horselai.gank.base.BaseMultipleTypeListAdapter;
 import com.example.horselai.gank.bean.GankSearch;
+import com.example.horselai.gank.bean.home.CommHomeItem;
 import com.example.horselai.gank.http.api.GankApi;
 
 import org.jsoup.Jsoup;
@@ -48,6 +49,13 @@ public class GankFetcherTest
         System.out.println("**********************sub text********************");
         System.out.println("text >>: " + doc.text().substring(0, 200));
 
+    }
+
+    @Test
+    public void fetchHome()
+    {
+        ArrayList<CommHomeItem> commHomeItems = GankFetcher.getFetcher().formHomePageGank();
+        System.out.println(commHomeItems);
     }
 
 }

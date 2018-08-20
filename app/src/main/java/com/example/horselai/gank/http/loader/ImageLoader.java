@@ -48,17 +48,20 @@ public class ImageLoader extends AbsImageLoader implements Closeable
 
     private final Handler mMainHandler = new Handler()
     {
-        @Override public void handleMessage(Message msg)
+        @Override
+        public void handleMessage(Message msg)
         {
             final Result result = (Result) msg.obj;
             switch (msg.what) {
 
                 case MSG_LOADING:
-                    if (imageLoading != 0) result.imageView.setImageResource(imageLoading);
+                    if (imageLoading != 0)
+                        result.imageView.setImageResource(imageLoading);
                     break;
 
                 case MSG_LOAD_OK:
-                    if (result.bitmap == null) return;
+                    if (result.bitmap == null)
+                        return;
                     if (result.imageView.getTag().equals(result.url)) {
                         result.imageView.setImageBitmap(result.bitmap);
                     }
@@ -71,7 +74,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
                     break;
 
                 case MSG_SET_IMG_GONE:
-                    if (result.imageView.getTag() != null && result.imageView.getTag().equals(result.url))
+                    if (result.imageView.getTag() != null && result.imageView.getTag()
+                            .equals(result.url))
                         result.imageView.setVisibility(View.GONE);
                     break;
             }
@@ -101,8 +105,10 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         return InstanceBuilder.loader;
     }
 
-    @Override public void close() throws IOException
+    @Override
+    public void close() throws IOException
     {
+        mMainHandler.removeCallbacksAndMessages(null);
         THREAD_POOL_HANDLER.cancelAndClearTaskQueue();
         THREAD_POOL_HANDLER.closePoolNow();
         mObjectCachePool.close();
@@ -132,7 +138,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
 
     public void init(ImageLoaderConfig config, Context context) throws Exception
     {
-        if (mIsCacheInitialized) throw new Exception("ImageLoader has already been initialized ! ");
+        if (mIsCacheInitialized)
+            throw new Exception("ImageLoader has already been initialized ! ");
 
         final long diskCacheSize = config.getDiskCacheSize();
         final int maxThreadPoolSize = config.getMaxThreadPoolSize();
@@ -157,10 +164,12 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             try {
                 switch (method) {
                     case ImageLoaderConfig.CACHE_DOUBLE:
-                        mCache = new ImageDoubleCache(getDiskCacheDir(context), diskCacheSize, compressFormat, compressQuality);
+                        mCache = new ImageDoubleCache(getDiskCacheDir(context), diskCacheSize,
+                                compressFormat, compressQuality);
                         break;
                     case ImageLoaderConfig.CACHE_DISK:
-                        mCache = new ImageDiskLruCache(getDiskCacheDir(context), diskCacheSize, compressFormat, compressQuality);
+                        mCache = new ImageDiskLruCache(getDiskCacheDir(context), diskCacheSize,
+                                compressFormat, compressQuality);
                         break;
                     case ImageLoaderConfig.CACHE_MEMORY:
                         mCache = new ImageMemoryCache();
@@ -185,7 +194,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         } else {
             file = new File(context.getCacheDir(), "imageCache");
         }
-        if (!file.exists()) file.mkdirs();
+        if (!file.exists())
+            file.mkdirs();
         return file;
     }
 
@@ -201,13 +211,17 @@ public class ImageLoader extends AbsImageLoader implements Closeable
      * @param url
      * @param goneIfNull 是否在图片不存在时把ImageView设置成View.GONE
      */
-    @Override public void displaySyncFromCache(final ImageView iv, String url, boolean goneIfNull)
+    @Override
+    public void displaySyncFromCache(final ImageView iv, String url, boolean goneIfNull)
     {
 
-        if (iv == null) return;
+        if (iv == null)
+            return;
         if (TextUtils.isEmpty(url)) {
-            if (!goneIfNull) iv.setImageResource(imageLoadFailed);
-            else iv.setVisibility(View.GONE);
+            if (!goneIfNull)
+                iv.setImageResource(imageLoadFailed);
+            else
+                iv.setVisibility(View.GONE);
             return;
         }
 
@@ -220,7 +234,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             iv.setImageBitmap(bitmap);
             return;
         }
-        if (goneIfNull) iv.setVisibility(View.GONE);
+        if (goneIfNull)
+            iv.setVisibility(View.GONE);
     }
 
 
@@ -230,7 +245,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
      * @param url
      * @return 可能为 null
      */
-    @Override public Bitmap fetchSyncFromCache(String url)
+    @Override
+    public Bitmap fetchSyncFromCache(String url)
     {
         try {
             return mCache.getFromCache(url);
@@ -272,10 +288,13 @@ public class ImageLoader extends AbsImageLoader implements Closeable
     @Override
     public void displayImageAsync(final ImageView iv, final String url, final boolean goneIfNull, final int targetW, final int targetH)
     {
-        if (iv == null) return;
+        if (iv == null)
+            return;
         if (TextUtils.isEmpty(url)) {
-            if (!goneIfNull) iv.setImageResource(imageLoadFailed);
-            else iv.setVisibility(View.GONE);
+            if (!goneIfNull)
+                iv.setImageResource(imageLoadFailed);
+            else
+                iv.setVisibility(View.GONE);
             return;
         }
 
@@ -286,41 +305,20 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         THREAD_POOL_HANDLER.addToPool(new FetchTask(url, targetW, targetH, iv, goneIfNull));
     }
 
-    final class FetchTask implements Runnable
+    private Bitmap loadImage(String url, int targetW, int targetH)
     {
-        private String url;
-        private int targetW;
-        private int targetH;
-        private ImageView iv;
-        private boolean goneIfNull;
+        //缓存中看看有没有
+        Bitmap bitmap = fetchSyncFromCache(url);
+        if (bitmap != null)
+            return bitmap;
 
-        public FetchTask(String url, int targetW, int targetH, ImageView iv, boolean goneIfNull)
-        {
-            this.url = url;
-            this.targetW = targetW;
-            this.targetH = targetH;
-            this.iv = iv;
-            this.goneIfNull = goneIfNull;
-        }
+        //检测过程中，线程有没有被终止
+        if (Thread.currentThread().isInterrupted())
+            return null;
 
-        @Override public void run()
-        {
-            final Bitmap bitmap = loadImage(url, targetW, targetH);
-
-            if (bitmap != null) {
-                mMainHandler.obtainMessage(MSG_LOAD_OK, getResult(iv, bitmap, url)).sendToTarget();
-                return;
-            }
-
-            int msg;
-            if (goneIfNull) {
-                msg = MSG_SET_IMG_GONE;
-            } else {
-                msg = MSG_LOAD_FAILED;
-            }
-            mMainHandler.obtainMessage(msg, getResult(iv, null, url)).sendToTarget();
-
-        }
+        //既然没有，那就网络下载呗
+        bitmap = fetchFromNet(url, true, targetW, targetH);
+        return bitmap;
     }
 
     private Result getResult(ImageView iv, Bitmap bitmap, String url)
@@ -332,22 +330,6 @@ public class ImageLoader extends AbsImageLoader implements Closeable
         return result;
     }
 
-
-    private Bitmap loadImage(String url, int targetW, int targetH)
-    {
-        //缓存中看看有没有
-        Bitmap bitmap = fetchSyncFromCache(url);
-        if (bitmap != null) return bitmap;
-
-        //检测过程中，线程有没有被终止
-        if (Thread.currentThread().isInterrupted()) return null;
-
-        //既然没有，那就网络下载呗
-        bitmap = fetchFromNet(url, true, targetW, targetH);
-        return bitmap;
-    }
-
-
     /**
      * 网上获取图片
      *
@@ -356,7 +338,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
      * @param targetH
      * @return
      */
-    @Override public Bitmap fetchFromNet(String url, boolean canCache, int targetW, int targetH)
+    @Override
+    public Bitmap fetchFromNet(String url, boolean canCache, int targetW, int targetH)
     {
         if (Looper.myLooper() == Looper.getMainLooper())
             throw new RuntimeException(" Don't try visiting net in UI Thread !");
@@ -390,23 +373,25 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             return null;
         } finally {
             Utils.close(is);
-            if (httpRequest != null) httpRequest.disconnect();
+            if (httpRequest != null)
+                httpRequest.disconnect();
         }
 
     }
-
 
     @Override
     public void downloadAsyncAndSave(final String url, final String absPathSaveTo, final DownloadListener listener)
     {
         THREAD_POOL_HANDLER.addToPool(new Runnable()
         {
-            @Override public void run()
+            @Override
+            public void run()
             {
                 HttpRequest httpRequest = null;
                 InputStream is = null;
                 try {
-                    if (listener != null) listener.onStart(url);
+                    if (listener != null)
+                        listener.onStart(url);
 
                     httpRequest = HttpRequest.newNormalRequest(url, false);
                     is = httpRequest.getInputStream();
@@ -414,28 +399,32 @@ public class ImageLoader extends AbsImageLoader implements Closeable
                     //保存到文件文件
                     FileManager.getInstance().writeToFile(absPathSaveTo, is);
 
-                    if (listener != null) listener.onSuccess(url);
+                    if (listener != null)
+                        listener.onSuccess(url);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    if (listener != null) listener.onFailed(url, e);
+                    if (listener != null)
+                        listener.onFailed(url, e);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    if (listener != null) listener.onFailed(url, e);
+                    if (listener != null)
+                        listener.onFailed(url, e);
                 } finally {
                     Utils.close(is);
-                    if (httpRequest != null) httpRequest.disconnect();
+                    if (httpRequest != null)
+                        httpRequest.disconnect();
                 }
             }
         });
 
     }
 
-
     /**
      * @param url
      * @param callback
      */
-    @Override public void downloadAsync(final String url, final ImageCallback callback)
+    @Override
+    public void downloadAsync(final String url, final ImageCallback callback)
     {
         downloadAsync(url, 0, 0, callback);
     }
@@ -456,7 +445,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
 
         THREAD_POOL_HANDLER.addToPool(new Runnable()
         {
-            @Override public void run()
+            @Override
+            public void run()
             {
                 final Bitmap bitmap = fetchFromNet(url, true, targetW, targetH);
                 if (bitmap != null) {
@@ -467,7 +457,6 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             }
         });
     }
-
 
     public static final class Result implements Closeable
     {
@@ -486,7 +475,8 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             this.url = mainUrl;
         }
 
-        @Override public void close() throws IOException
+        @Override
+        public void close() throws IOException
         {
             if (bitmap != null && !bitmap.isRecycled()) {
                 bitmap.recycle();
@@ -494,6 +484,44 @@ public class ImageLoader extends AbsImageLoader implements Closeable
             }
             imageView = null;
             url = null;
+        }
+    }
+
+    final class FetchTask implements Runnable
+    {
+        private String url;
+        private int targetW;
+        private int targetH;
+        private ImageView iv;
+        private boolean goneIfNull;
+
+        public FetchTask(String url, int targetW, int targetH, ImageView iv, boolean goneIfNull)
+        {
+            this.url = url;
+            this.targetW = targetW;
+            this.targetH = targetH;
+            this.iv = iv;
+            this.goneIfNull = goneIfNull;
+        }
+
+        @Override
+        public void run()
+        {
+            final Bitmap bitmap = loadImage(url, targetW, targetH);
+
+            if (bitmap != null) {
+                mMainHandler.obtainMessage(MSG_LOAD_OK, getResult(iv, bitmap, url)).sendToTarget();
+                return;
+            }
+
+            int msg;
+            if (goneIfNull) {
+                msg = MSG_SET_IMG_GONE;
+            } else {
+                msg = MSG_LOAD_FAILED;
+            }
+            mMainHandler.obtainMessage(msg, getResult(iv, null, url)).sendToTarget();
+
         }
     }
 }

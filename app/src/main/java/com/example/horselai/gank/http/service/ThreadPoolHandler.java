@@ -27,7 +27,7 @@ public class ThreadPoolHandler
 {
     private static final String TAG = "ThreadPoolHandler >>> ";
     private ThreadPoolExecutor mExecutor = null;
-    private static final LinkedBlockingQueue QUEUE = new LinkedBlockingQueue(128);
+    private static final LinkedBlockingQueue QUEUE = new LinkedBlockingQueue(256);
     private static final int CORE_POOL_SIZE = Math.max(2, Math.min(Runtime.getRuntime().availableProcessors() - 1, 4));
     private static final int MAX_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2 + 1;
     private static final int KEEP_ALIVE_SECONDS = 15; //存活时间（超时时间）
