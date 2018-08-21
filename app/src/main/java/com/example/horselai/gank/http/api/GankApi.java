@@ -81,8 +81,8 @@ public final class GankApi
 
     private static String encodeRandom(String type, int itemNum)
     {
-        //http://gank.io/api/random/data/%E7%A6%8F%E5%88%A9/1
-        return "http://gank.io/api/random/data/" + Utils.urlEncodeUTF8(type) + "/" + itemNum;
+        //https://gank.io/api/random/data/%E7%A6%8F%E5%88%A9/1
+        return "https://gank.io/api/random/data/" + Utils.urlEncodeUTF8(type) + "/" + itemNum;
     }
 
 
@@ -96,20 +96,20 @@ public final class GankApi
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.add(Calendar.DATE, -daysOffset);
-        //http://gank.io/api/day/2017/07/07
-        return "http://gank.io/api/day/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
+        //https://gank.io/api/day/2017/07/07
+        return "https://gank.io/api/day/" + calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
     }
 
 
     public static String encodeNormalApiUrl(String type, int itemNum, int pageNum)
     {
-        return "http://gank.io/api/data/" + Utils.urlEncodeUTF8(type) + "/" + itemNum + "/" + pageNum;
+        return "https://gank.io/api/data/" + Utils.urlEncodeUTF8(type) + "/" + itemNum + "/" + pageNum;
     }
 
 
-    //http://gank.io/api/search/query/listview/category/Android/count/10/page/1
+    //https://gank.io/api/search/query/listview/category/Android/count/10/page/1
     public static String apiSearch(String keyWords, String category, int count, int page)
     {
-        return "http://gank.io/api/search/query/" + Utils.urlEncodeUTF8(keyWords) + "/category/" + Utils.urlEncodeUTF8(category) + "/count/" + count + "/page/" + page;
+        return "https://gank.io/api/search/query/" + Utils.urlEncodeUTF8(keyWords) + "/category/" + Utils.urlEncodeUTF8(category) + "/count/" + count + "/page/" + page;
     }
 }

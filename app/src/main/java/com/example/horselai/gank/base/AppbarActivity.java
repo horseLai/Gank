@@ -49,6 +49,7 @@ public abstract class AppbarActivity extends BaseActivity
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mAppbar = (AppBarLayout) findViewById(R.id.app_bar_layout);
         StatusBarCompat.compatToolbar(mToolbar, this);
+
         mToolbar.setOnClickListener(onToolbarClick());
         mToolbar.setTitleMarginStart(0);
         mToolbar.setTitle("");

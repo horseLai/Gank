@@ -38,23 +38,27 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
     private Snackbar mSnackbar;
     private WallpaperManager mWpManager;
 
-    @Override protected boolean homeAsUpEnable()
+    @Override
+    protected boolean homeAsUpEnable()
     {
         return true;
     }
 
-    @Override protected View.OnClickListener onToolbarClick()
+    @Override
+    protected View.OnClickListener onToolbarClick()
     {
         return null;
     }
 
-    @Override public int provideContentViewId()
+    @Override
+    public int provideContentViewId()
     {
         return R.layout.activity_image;
     }
 
 
-    @Override public void onCreate(@Nullable Bundle savedInstanceState)
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
@@ -88,7 +92,8 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         mSnackbar = Snackbar.make(mImageView, "下载成功！", Snackbar.LENGTH_LONG);
         mSnackbar.setAction("我知道了", new View.OnClickListener()
         {
-            @Override public void onClick(View v)
+            @Override
+            public void onClick(View v)
             {
                 mSnackbar.dismiss();
             }
@@ -101,27 +106,32 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
 
     boolean mFirstDisplay = true;
 
-    @Override public void onWindowFocusChanged(boolean hasFocus)
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
     {
         super.onWindowFocusChanged(hasFocus);
-        if (!mFirstDisplay) return;
+        if (!mFirstDisplay)
+            return;
 
         mFirstDisplay = false;
-        if (mBeauty == null) return;
+        if (mBeauty == null)
+            return;
 
         final String url = mBeauty.url + "?imageView2/0/w/" + mImageView.getWidth();
         ImageLoader.getImageLoader().displayImageAsync(mImageView, url, false);
     }
 
 
-    @Override public boolean onCreateOptionsMenu(Menu menu)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.image_setting, menu);
         return true;
     }
 
 
-    @Override public boolean onOptionsItemSelected(MenuItem item)
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
     {
         switch (item.getItemId()) {
             case R.id.menu_download: {
@@ -155,29 +165,31 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
 
     private void showMenu(View anchorView)
     {
-        Utils.popupMenu(anchorView, R.menu.image_sub_menu, false, new PopupMenu.OnMenuItemClickListener()
-        {
-            @Override public boolean onMenuItemClick(MenuItem item)
-            {
-                switch (item.getItemId()) {
-                    case R.id.menu_wallpaper: {
-                        final String picPath = mPresenter.getPicPath(mBeauty.url);
-                        final FileManager fileManager = FileManager.getInstance();
-                        final boolean exists = fileManager.exists(picPath);
-                        if (exists) {
-                            mPresenter.settingWallpaper(mWpManager, mBeauty.url);
-                            mIsSettingWallpaper = false;
-                            break;
-                        }
-                        mPresenter.update(mBeauty.url);
-                        mIsSettingWallpaper = true;
-                        break;
-                    }
+        Utils.popupMenu(anchorView, R.menu.image_sub_menu, false,
+                new PopupMenu.OnMenuItemClickListener()
+                {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item)
+                    {
+                        switch (item.getItemId()) {
+                            case R.id.menu_wallpaper: {
+                                final String picPath = mPresenter.getPicPath(mBeauty.url);
+                                final FileManager fileManager = FileManager.getInstance();
+                                final boolean exists = fileManager.exists(picPath);
+                                if (exists) {
+                                    mPresenter.settingWallpaper(mWpManager, mBeauty.url);
+                                    mIsSettingWallpaper = false;
+                                    break;
+                                }
+                                mPresenter.update(mBeauty.url);
+                                mIsSettingWallpaper = true;
+                                break;
+                            }
 
-                }
-                return true;
-            }
-        });
+                        }
+                        return true;
+                    }
+                });
     }
 
     boolean mIsSettingWallpaper = false;
@@ -189,13 +201,15 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         mSnackbar.show();
     }
 
-    @Override public void onClick(View v)
+    @Override
+    public void onClick(View v)
     {
 
     }
 
 
-    @Override public void onLoadOk(String data)
+    @Override
+    public void onLoadOk(String data)
     {
         if (mIsSettingWallpaper) {
             mPresenter.settingWallpaper(mWpManager, mBeauty.url);
@@ -206,18 +220,22 @@ public class ImageActivity extends AppbarActivity implements View.OnClickListene
         showSnackBar(data + "(●'◡'●)");
         //插入MediaStore.Images， 但是它存在于相册
         try {
-            MediaStore.Images.Media.insertImage(getContentResolver(), mPresenter.getPicPath(mBeauty.url), "", "contributed by " + mBeauty.who);
+            MediaStore.Images.Media.insertImage(getContentResolver(),
+                    mPresenter.getPicPath(mBeauty.url), "",
+                    "contributed by " + mBeauty.who);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    @Override public void onLoadFailed(Exception e)
+    @Override
+    public void onLoadFailed(Exception e)
     {
         showSnackBar(e.getMessage());
     }
 
-    @Override protected void onDestroy()
+    @Override
+    protected void onDestroy()
     {
         super.onDestroy();
         BitmapManager.getInstance().releaseImage(mImageView);

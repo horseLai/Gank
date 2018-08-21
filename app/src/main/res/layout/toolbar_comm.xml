@@ -6,7 +6,6 @@
     android:id="@+id/toolbar"
     style="@style/AppToolbarStyle"
     app:layout_collapseMode="pin"
-    android:fitsSystemWindows="true"
     app:popupTheme="@style/AppTheme.PopupOverlay"
     >
     <com.example.horselai.gank.impl.TitleTextView

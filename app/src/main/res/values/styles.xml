@@ -34,6 +34,7 @@
     <!--CollapseLayout-->
     <style name="AppBarCollapseLayoutStyle" parent="StyleMMParent">
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
 
@@ -69,6 +70,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:lineSpacingExtra">1dp</item>
         <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center_vertical</item>
         <item name="android:textColor">@color/lightBlack</item>
         <item name="android:singleLine">true</item>
         <item name="android:focusableInTouchMode">true</item>

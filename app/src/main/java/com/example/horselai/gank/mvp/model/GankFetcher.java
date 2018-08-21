@@ -12,6 +12,7 @@ import com.example.horselai.gank.bean.home.CommHomeItem;
 import com.example.horselai.gank.comm.ICallback;
 import com.example.horselai.gank.http.api.GankApi;
 import com.example.horselai.gank.http.request.HttpRequest;
+import com.example.horselai.gank.http.request.HttpRequestUtil;
 import com.example.horselai.gank.http.service.AsyncService;
 import com.example.horselai.gank.util.JsonUtil;
 import com.example.horselai.gank.util.Utils;
@@ -67,7 +68,8 @@ public final class GankFetcher
     {
         mService.addRequestTask(new Runnable()
         {
-            @Override public void run()
+            @Override
+            public void run()
             {
                 final String url = GankApi.encodeNormalApiUrl(apiType, itemNum, pageNum);
 
@@ -195,7 +197,8 @@ public final class GankFetcher
 
         mService.addRequestTask(new Runnable()
         {
-            @Override public void run()
+            @Override
+            public void run()
             {
                 final String url = GankApi.apiByDate(date, dayOffset);
                 final SparseArray<Object> todays = fetchGankByDate(url, true);
@@ -498,7 +501,9 @@ public final class GankFetcher
     {
         final HttpRequest httpRequest = HttpRequest.newNormalRequest(url, false);
         final String result = httpRequest.doRequest("UTF-8");
+//        final String result = HttpRequestUtil.getContentFromNetWithNoCache("GET", "UTF-8", url, null);
 
+        Log.i(TAG, "getJsonArrComm: " + result);
         final JsonObject object = JsonUtil.parseJson(result);
         if (JsonUtil.isJsonNull(object)) return null;
 

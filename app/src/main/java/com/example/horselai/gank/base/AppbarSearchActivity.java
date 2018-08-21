@@ -79,8 +79,6 @@ public abstract class AppbarSearchActivity extends AppbarActivity implements ISe
             mSearchPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_FROM_FOCUSABLE);
             //mSearchPopup.setAnimationStyle(R.style.searchPopupAnimationStyle);
             initListView(popupView);
-
-
         }
 
         //清理状态，使得每次都跟第一次显示一样

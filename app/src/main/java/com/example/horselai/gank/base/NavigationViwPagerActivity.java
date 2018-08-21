@@ -1,8 +1,11 @@
 package com.example.horselai.gank.base;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.util.ArrayMap;
+import android.util.SparseArray;
 import android.view.View;
 
 import com.example.horselai.gank.R;

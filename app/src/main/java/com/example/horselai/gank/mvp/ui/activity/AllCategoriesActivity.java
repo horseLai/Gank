@@ -28,33 +28,42 @@ public class AllCategoriesActivity extends AppbarSearchActivity
     private ImageView mImageBg;
     private ViewPager mViewPager;
 
-    @Override protected boolean homeAsUpEnable()
+    @Override
+    protected boolean homeAsUpEnable()
     {
         return true;
     }
 
-    @Override protected View.OnClickListener onToolbarClick()
+    @Override
+    protected View.OnClickListener onToolbarClick()
     {
         return null;
     }
 
-    @Override public int provideContentViewId()
+    @Override
+    public int provideContentViewId()
     {
         return R.layout.activity_all_categories;
     }
 
 
-    @Override public void onCreate(@Nullable Bundle savedInstanceState)
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         getToolbar().setLogo(R.drawable.logo_work);
+        //getBarTitleView().setCompoundDrawables(getResources().getDrawable(R.drawable.logo_work), null, null, null);
         getToolbar().setLongClickable(true);
         getToolbar().setOnLongClickListener(new View.OnLongClickListener()
         {
-            @Override public boolean onLongClick(View v)
+            @Override
+            public boolean onLongClick(View v)
             {
-                Utils.alertDialog(AllCategoriesActivity.this, getResources().getString(R.string.app_name), getResources().getString(R.string.logo_desc), R.drawable.logo_work);
+                Utils.alertDialog(AllCategoriesActivity.this,
+                        getResources().getString(R.string.app_name),
+                        getResources().getString(R.string.logo_desc),
+                        R.drawable.logo_work);
                 return true;
             }
         });
@@ -77,7 +86,8 @@ public class AllCategoriesActivity extends AppbarSearchActivity
     {
         mViewPager = (ViewPager) findViewById(R.id.vp_container);
 
-        final BaseFragmentStatePagerAdapter pagerAdapter = new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
+        final BaseFragmentStatePagerAdapter pagerAdapter =
+                new BaseFragmentStatePagerAdapter(getSupportFragmentManager());
         final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(mViewPager);
         /*tabs.setBackgroundColor(Color.TRANSPARENT);
@@ -101,7 +111,8 @@ public class AllCategoriesActivity extends AppbarSearchActivity
 
     }
 
-    @Override protected void onDestroy()
+    @Override
+    protected void onDestroy()
     {
         super.onDestroy();
 
